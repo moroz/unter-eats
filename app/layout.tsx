@@ -1,4 +1,4 @@
-import "../styles/globals.css";
+import "../styles/globals.scss";
 import styles from "./Layout.module.sass";
 
 export default function RootLayout({

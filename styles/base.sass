@@ -1,0 +1,59 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,700;1,400&display=swap')
+
+:root
+  --header-height: #{$header-height}
+  --header-total-height: #{$header-height + $navbar-height}
+  --header-side-padding: #{$header-side-padding}
+  --fg-color: #{$fg-color}
+  --bg-color: #{$bg-color}
+  --footer-bg: #{$footer-bg}
+  --primary: #{$primary}
+  --dimmed-color: #{$dimmed-color}
+  @each $level, $color in $surface-light
+    --surface-#{$level}: #{$color}
+
+  +mobile
+    --header-total-height: #{$header-height}
+    --header-side-padding: 1.5rem
+
+  +dark
+    --primary: #{$primary-dark}
+    --fg-color: #{$fg-color-dark}
+    --bg-color: #{$bg-color-dark}
+    --footer-bg: #{$footer-bg-dark}
+    --dimmed-color: #{$dimmed-color-dark}
+    --emphasis-color: #{$emphasis-color}
+    @each $level, $color in $surface-levels
+      --surface-#{$level}: #{$color}
+
++dark
+  body
+    color-scheme: dark
+
+html
+  overflow-y: scroll
+
+html, body
+  font-size: 100%
+  padding: 0
+  margin: 0
+
+h1, h2, h3, h4, h5, h6, strong, th, b
+  color: var(--emphasis-color)
+
+*, *::after, *::before
+  box-sizing: border-box
+
+body
+  color: var(--fg-color)
+  background: var(--bg-color)
+  font-family: $font-family-sans
+
+a:link, a:visited
+  text-decoration: none
+  color: $link-color
+
+.container
+  width: $content-width
+  margin: 0 auto
+  

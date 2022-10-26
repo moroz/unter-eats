@@ -1,0 +1,48 @@
+@import rem-calc
+
+$bg-color: #fff
+$fg-color: #000
+$bg-color-dark: #121212
+$fg-color-dark: rgba(255, 255, 255, .6)
+$footer-bg: #eee
+$footer-bg-dark: #333
+
+$dimmed-color: #555
+$dimmed-color-dark: rgba(255, 255, 255, 0.7)
+
+$emphasis-color: rgba(255, 255, 255, .87)
+
+$dark-red: #cd2030
+$primary: $dark-red
+$primary-dark: lighten(rgb(226, 67, 82), 3%)
+$link-color: var(--primary)
+$header-height: rem-calc(70)
+$content-width: rem-calc(1000)
+
+$surface-light: ("1dp": darken($bg-color, 3%))
+
+$surface-levels: ("1dp": #1d1d1d, "2dp": #212121)
+
+$font-family-custom: Open Sans
+$font-family-system: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif
+$font-family-sans: $font-family-custom, $font-family-system
+
+$header-side-padding: 10rem
+
+$navbar-height: rem-calc(50px)
+$navbar-item-side-padding: 1.25rem
+$navbar-item-hover-bg: darken(white, 6%)
+
+$breakpoint: $content-width + 3rem
+
+=mobile
+  @media screen and (max-width: #{$breakpoint - rem-calc(1px)})
+    @content
+
+=not-mobile
+  @media screen and (min-width: #{$breakpoint})
+    @content
+
+=dark
+  @media (prefers-color-scheme: dark)
+    @content
