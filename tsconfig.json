@@ -22,6 +22,8 @@
     "paths": {
       "@api/*": ["./api/*"],
       "@interfaces": ["./interfaces/index.ts"],
+      "@layout": ["./components/layout/index.tsx"],
+      "@components": ["./components/index.ts"],
       "@/*": ["./*"]
     }
   },

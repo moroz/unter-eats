@@ -1,0 +1,28 @@
+.header
+  height: var(--header-height)
+  display: flex
+  padding: 0 2rem
+
+  p, h1
+    margin: 0
+
+.logo
+  &, &:visited
+    color: var(--emphasis-color)
+
+  h1
+    margin: 0
+
+.navbar
+  margin-left: auto
+
+  a
+    display: inline-block
+    height: var(--header-height)
+    line-height: var(--header-height)
+    text-transform: uppercase
+    padding: 0 1rem
+    transition: .2s ease-in-out
+  
+    &:hover
+      background: var(--surface-1dp)

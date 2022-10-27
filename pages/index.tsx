@@ -2,6 +2,7 @@ import { getCategoryQuery } from "@api/queries";
 import { Category } from "@interfaces";
 import { GetStaticProps } from "next";
 import React from "react";
+import Layout from "@layout";
 
 interface Props {
   category: Category;
@@ -9,7 +10,7 @@ interface Props {
 
 const Home: React.FC<Props> = ({ category }) => {
   return (
-    <div>
+    <Layout>
       <h1>{category.namePl}</h1>
       {category.products.map((product) => (
         <article key={product.id}>
@@ -19,7 +20,7 @@ const Home: React.FC<Props> = ({ category }) => {
           <button>Do koszyka</button>
         </article>
       ))}
-    </div>
+    </Layout>
   );
 };
 
