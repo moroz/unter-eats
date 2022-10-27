@@ -23,7 +23,7 @@ const Home: React.FC<Props> = ({ category }) => {
   );
 };
 
-export const getStaticProps: GetStaticProps = async ({ params }) => {
+export const getStaticProps: GetStaticProps = async () => {
   const slug = "burgery";
   const data = await getCategoryQuery({ id: slug });
 
