@@ -2,18 +2,39 @@
   height: var(--header-height)
   display: flex
   align-items: center
-  padding: 0 2rem
+  padding: 0 1rem
+  position: fixed
+  top: 0
+  left: 0
+  right: 0
+  background: var(--bg-color)
+  transition: .2s ease-in-out
 
   p, h1
     margin: 0
+  
+  a
+    &:hover
+      background: var(--surface-1dp)
+
+  &.opaque
+    background: var(--surface-1dp)
+    a
+      &:hover
+        background: var(--surface-2dp)
 
 .logo
+  height: var(--header-height)
+  padding: 0 1rem
+  display: flex
+  align-items: center
+
   &, &:visited
     color: var(--emphasis-color)
 
   svg
     fill: currentColor
-    height: calc(var(--header-height) - 1rem)
+    height: calc(var(--header-height) * .7)
 
 .navbar
   margin-left: auto
@@ -25,6 +46,3 @@
     text-transform: uppercase
     padding: 0 1rem
     transition: .2s ease-in-out
-  
-    &:hover
-      background: var(--surface-1dp)

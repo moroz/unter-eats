@@ -6,12 +6,10 @@ export const GET_CATEGORY = gql`
   query GetCategory($id: ID!) {
     category(id: $id) {
       id
-      nameEn
       namePl
       slug
       products {
         id
-        nameEn
         namePl
         price
         descriptionPl
@@ -33,3 +31,20 @@ export const getCategoryQuery = query<
   GetCategoryQueryResult,
   GetCategoryQueryVariables
 >(GET_CATEGORY);
+
+export const LIST_CATEGORIES = gql`
+  query ListCategories {
+    categories {
+      id
+      namePl
+      slug
+    }
+  }
+`;
+
+export interface ListCategoriesQueryResult {
+  categories: Category[];
+}
+
+export const listCategoriesQuery =
+  query<ListCategoriesQueryResult>(LIST_CATEGORIES);
