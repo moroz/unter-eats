@@ -1,6 +1,7 @@
 .header
   height: var(--header-height)
   display: flex
+  align-items: center
   padding: 0 2rem
 
   p, h1
@@ -10,8 +11,9 @@
   &, &:visited
     color: var(--emphasis-color)
 
-  h1
-    margin: 0
+  svg
+    fill: currentColor
+    height: calc(var(--header-height) - 1rem)
 
 .navbar
   margin-left: auto

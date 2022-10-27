@@ -1,15 +1,15 @@
 import Link from "next/link";
 import React from "react";
 import styles from "./Header.module.sass";
+import Logo from "./artesano_logo.svg";
 
 interface Props {}
 
 const Header: React.FC<Props> = () => {
   return (
     <header className={styles.header}>
-      <Link href="/" className={styles.logo}>
-        <h1>Artesano</h1>
-        <small>Sports Bar</small>
+      <Link href="/" className={styles.logo} title="Artesano Sports Bar & Food">
+        <Logo />
       </Link>
       <nav className={styles.navbar}>
         <Link href="/">Strona główna</Link>
