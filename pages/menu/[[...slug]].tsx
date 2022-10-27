@@ -3,6 +3,7 @@ import { CategoryNavigation } from "@components";
 import { Category } from "@interfaces";
 import Layout from "@layout";
 import { GetServerSideProps } from "next";
+import Link from "next/link";
 import React from "react";
 
 interface Props {
@@ -17,7 +18,9 @@ const Menu: React.FC<Props> = ({ category, categories }) => {
       <h2>{category.namePl}</h2>
       {category.products.map((product) => (
         <article key={product.id}>
-          <h3>{product.namePl}</h3>
+          <Link href={`/menu/product/${product.slug}`}>
+            <h3>{product.namePl}</h3>
+          </Link>
           <p>{product.descriptionPl}</p>
           <p>{product.price} PLN</p>
           <button>Do koszyka</button>
@@ -37,7 +40,7 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   return {
     props: {
       category: categoryQuery.data.category,
-      categories: categories
+      categories
     }
   };
 };
