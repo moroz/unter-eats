@@ -1,6 +1,5 @@
 import ProductGrid from "@/components/ProductGrid";
 import { getCategoryQuery, listCategoriesQuery } from "@api/queries";
-import { CategoryNavigation } from "@components";
 import { Category } from "@interfaces";
 import Layout from "@layout";
 import { GetServerSideProps } from "next";
@@ -13,9 +12,7 @@ interface Props {
 
 const Menu: React.FC<Props> = ({ category, categories }) => {
   return (
-    <Layout title={category.namePl}>
-      <CategoryNavigation categories={categories} />
-      <h2>{category.namePl}</h2>
+    <Layout title={category.namePl} categories={categories}>
       <ProductGrid products={category.products} category={category} />
     </Layout>
   );
