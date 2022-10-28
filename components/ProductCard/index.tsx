@@ -1,5 +1,7 @@
 import { Product } from "@interfaces";
+import Link from "next/link";
 import React from "react";
+import ProductImage from "../ProductImage";
 import styles from "./ProductCard.module.sass";
 
 interface Props {
@@ -9,7 +11,10 @@ interface Props {
 const ProductCard: React.FC<Props> = ({ product }) => {
   return (
     <article className={styles.card}>
-      <h2 className={styles.name}>{product.namePl}</h2>
+      <ProductImage />
+      <Link href={`/menu/product/${product.slug}`} className={styles.name}>
+        {product.namePl}
+      </Link>
       <p>{product.descriptionPl}</p>
       <button className={styles.cta}>
         Do koszyka &bull; {product.price} zł
