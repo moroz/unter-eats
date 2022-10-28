@@ -10,6 +10,8 @@
   --footer-bg: #{$footer-bg}
   --primary: #{$primary}
   --dimmed-color: #{$dimmed-color}
+  --primary-hover: #{lighten($primary, 4%)}
+
   @each $level, $color in $surface-light
     --surface-#{$level}: #{$color}
 
@@ -19,6 +21,7 @@
 
   +dark
     --primary: #{$primary-dark}
+    --primary-hover: #{lighten($primary-dark, 4%)}
     --fg-color: #{$fg-color-dark}
     --bg-color: #{$bg-color-dark}
     --footer-bg: #{$footer-bg-dark}
@@ -57,4 +60,8 @@ a:link, a:visited
 .container
   width: $content-width
   margin: 0 auto
-  
+
+  @media screen and (max-width: #{$content-width})
+    width: 100%
+    margin: 0
+
