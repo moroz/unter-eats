@@ -2,6 +2,8 @@
   --aspect-ratio: 16 / 10
   aspect-ratio: var(--aspect-ratio)
   transition: .2s ease-in-out
+  position: relative
+  display: flex
 
   &:empty
     background: var(--surface-1dp)
@@ -19,3 +21,12 @@
   &:hover
     img
       filter: saturate(150%)
+      
+.priceLabel
+  position: absolute
+  bottom: .75rem
+  right: .75rem
+  background: var(--surface-1dp)
+  padding: .5em .75em
+  text-transform: uppercase
+  color: var(--emphasis-color)

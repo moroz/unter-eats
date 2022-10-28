@@ -16,7 +16,7 @@ const Menu: React.FC<Props> = ({ category, categories }) => {
     <Layout title={category.namePl}>
       <CategoryNavigation categories={categories} />
       <h2>{category.namePl}</h2>
-      <ProductGrid products={category.products} />
+      <ProductGrid products={category.products} category={category} />
     </Layout>
   );
 };
