@@ -9,10 +9,13 @@ interface Props {
 }
 
 const ProductCard: React.FC<Props> = ({ product }) => {
+  const url = `/menu/product/${product.slug}`;
   return (
     <article className={styles.card}>
-      <ProductImage />
-      <Link href={`/menu/product/${product.slug}`} className={styles.name}>
+      <Link href={url}>
+        <ProductImage />
+      </Link>
+      <Link href={url} className={styles.name}>
         {product.namePl}
       </Link>
       <p>{product.descriptionPl}</p>
