@@ -1,8 +1,8 @@
 import useCart from "@/hooks/useCart";
-import { transformProducts } from "@/lib/cart/CartHelpers";
+import { calculateTotal, transformProducts } from "@/lib/cart/CartHelpers";
 import { useGetProductsQuery } from "@api/queries";
 import Layout from "@layout";
-import React from "react";
+import React, { useMemo } from "react";
 
 interface Props {}
 
@@ -12,6 +12,10 @@ const CartPage: React.FC<Props> = () => {
 
   const { data } = useGetProductsQuery(ids);
   const products = transformProducts(data?.products);
+  const grandTotal = useMemo(() => {
+    if (!data?.products) return 0;
+    return calculateTotal(items, data?.products);
+  }, [items, data?.products]);
 
   return (
     <Layout title="Koszyk">
@@ -29,6 +33,7 @@ const CartPage: React.FC<Props> = () => {
           })}
         </ul>
       )}
+      <p>Grand total: {grandTotal}</p>
     </Layout>
   );
 };
