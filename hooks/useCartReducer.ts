@@ -27,16 +27,6 @@ export default function useCartReducer() {
     localStorage.setItem(CART_KEY, JSON.stringify(state));
   }, [state]);
 
-  const reset = useCallback(
-    (state: CartState) => {
-      dispatch({
-        type: CartActionType.ResetState,
-        state
-      });
-    },
-    [dispatch]
-  );
-
   const addItem = useCallback(
     (id: string) => {
       dispatch({
@@ -69,7 +59,6 @@ export default function useCartReducer() {
     items,
     removeItem,
     addItem,
-    changeItemQuantity,
-    reset
+    changeItemQuantity
   };
 }
