@@ -8,7 +8,7 @@ export default function App({ Component, pageProps }: AppProps) {
 
   return (
     <CartContext.Provider value={cart}>
-      <Component {...pageProps} />;
+      <Component {...pageProps} />
     </CartContext.Provider>
   );
 }

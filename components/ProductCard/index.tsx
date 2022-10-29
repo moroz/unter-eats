@@ -1,6 +1,7 @@
 import { Category, Product } from "@interfaces";
 import Link from "next/link";
 import React from "react";
+import AddToCartButton from "../AddToCartButton";
 import ProductImage from "../ProductImage";
 import styles from "./ProductCard.module.sass";
 
@@ -23,9 +24,7 @@ const ProductCard: React.FC<Props> = ({ product, category }) => {
         {product.namePl}
       </Link>
       <p>{product.descriptionPl}</p>
-      <button className={styles.cta}>
-        Do koszyka &bull; {product.price} zł
-      </button>
+      <AddToCartButton product={product} />
     </article>
   );
 };

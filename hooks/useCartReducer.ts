@@ -1,10 +1,31 @@
 import { CartActionType } from "@/lib/cart/CartAction";
 import { CartState } from "@/lib/cart/CartState";
 import CartReducer, { initialState } from "@/lib/cart/reducer";
-import { useReducer, useCallback } from "react";
+import { useReducer, useCallback, useMemo, useEffect } from "react";
+
+const CART_KEY = "__ARTESANO_CART";
+
+const persist = (state: CartState) => {
+  localStorage.setItem(CART_KEY, JSON.stringify(state));
+};
 
 export default function useCartReducer() {
-  const [{ items }, dispatch] = useReducer(CartReducer, initialState);
+  const [state, dispatch] = useReducer(
+    CartReducer,
+    initialState,
+    (defaultValue) => {
+      if (typeof window === "undefined") return defaultValue;
+
+      const persistedStateJSON = localStorage.getItem(CART_KEY);
+      const parsed = persistedStateJSON && JSON.parse(persistedStateJSON);
+      return parsed ?? defaultValue;
+    }
+  );
+  const { items } = state;
+
+  useEffect(() => {
+    localStorage.setItem(CART_KEY, JSON.stringify(state));
+  }, [state]);
 
   const reset = useCallback(
     (state: CartState) => {
