@@ -13,7 +13,6 @@ const AddToCartButton: React.FC<Props> = ({ product, className }) => {
   const { addItem } = useCart();
 
   const onClick = useCallback(() => {
-    console.log(product.id);
     addItem(product.id);
   }, [addItem, product.id]);
 

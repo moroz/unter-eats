@@ -20,9 +20,9 @@ const CartModal: React.FC<Props> = () => {
   }, [data]);
 
   const grandTotal = useMemo(() => {
-    if (!data?.products) return 0;
-    return calculateTotal(items, data?.products);
-  }, [items, data?.products]);
+    if (!Object.entries(lastResult).length) return 0;
+    return calculateTotal(items, lastResult);
+  }, [items, lastResult]);
 
   if (!lastResult) return null;
 
@@ -50,7 +50,9 @@ const CartModal: React.FC<Props> = () => {
           )}
         </section>
         <section className={styles.summary}>
-          <p>Grand total: {grandTotal}</p>
+          <p>Suma:</p>
+          <p>{grandTotal} zł</p>
+          <button className={styles.cta}>Do kasy</button>
         </section>
       </div>
     </>

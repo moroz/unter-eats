@@ -7,10 +7,12 @@ export const transformProducts = (
   return Object.fromEntries(products.map((p) => [p.id, p]));
 };
 
-export const calculateTotal = (items: CartItem[], products: Product[]) => {
-  const transformedProducts = transformProducts(products);
+export const calculateTotal = (
+  items: CartItem[],
+  products: Record<string, Product>
+) => {
   return items.reduce((acc, item) => {
-    const product = transformedProducts[item.id];
+    const product = products[item.id];
     if (!product) return acc;
     return acc + Number(product.price) * item.quantity;
   }, 0);
