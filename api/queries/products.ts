@@ -21,5 +21,6 @@ export interface GetProductsQueryVariables {
 
 export const useGetProductsQuery = (ids: string[]) =>
   useQuery<GetProductsQueryResult, GetProductsQueryVariables>(GET_PRODUCTS, {
-    variables: { ids }
+    variables: { ids },
+    nextFetchPolicy: "cache-first"
   });
