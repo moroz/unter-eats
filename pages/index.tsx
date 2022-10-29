@@ -4,11 +4,7 @@ import Layout from "@layout";
 interface Props {}
 
 const Home: React.FC<Props> = () => {
-  return (
-    <Layout>
-      <h1>Artesano</h1>
-    </Layout>
-  );
+  return <Layout title="Artesano"></Layout>;
 };
 
 export default Home;

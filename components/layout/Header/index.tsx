@@ -5,14 +5,12 @@ import Logo from "./artesano_logo.svg";
 import clsx from "clsx";
 import useHeaderScroll from "@/hooks/useHeaderScroll";
 import useCart from "@/hooks/useCart";
-import useHydrated from "@/hooks/useHydrated";
 
 interface Props {}
 
 const Header: React.FC<Props> = () => {
   const opaque = useHeaderScroll();
   const { items } = useCart();
-  const hydrated = useHydrated();
 
   return (
     <header className={clsx(styles.header, opaque && styles.opaque)}>
@@ -23,7 +21,9 @@ const Header: React.FC<Props> = () => {
         <Link href="/">Strona główna</Link>
         <Link href="/menu">Menu</Link>
         <Link href="/kontakt">Kontakt</Link>
-        <Link href="/koszyk">Koszyk ({hydrated ? items.length : "0"})</Link>
+        <Link href="/koszyk">
+          Koszyk {items.length ? `(${items.length})` : null}
+        </Link>
       </nav>
     </header>
   );

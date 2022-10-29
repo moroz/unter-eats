@@ -2,8 +2,7 @@ import { CartState } from "./CartState";
 
 export enum CartActionType {
   AddItem,
-  ChangeItemQuantity,
-  ResetState
+  ChangeItemQuantity
 }
 
 export interface AddItemAction {
@@ -17,9 +16,4 @@ export interface ChangeItemAction {
   quantity: number;
 }
 
-export interface ResetStateAction {
-  type: CartActionType.ResetState;
-  state: CartState;
-}
-
-export type CartAction = AddItemAction | ChangeItemAction | ResetStateAction;
+export type CartAction = AddItemAction | ChangeItemAction;

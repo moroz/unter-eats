@@ -31,6 +31,26 @@ const CartReducer: Reducer<CartState, CartAction> = (
       };
     }
 
+    case CartActionType.ChangeItemQuantity: {
+      const existing = state.items.find((i) => i.id === action.id);
+      if (!existing) return state;
+
+      if (action.quantity <= 0) {
+        return {
+          ...state,
+          items: state.items.filter((i) => i.id !== action.id)
+        };
+      }
+
+      return {
+        ...state,
+        items: state.items.map((i) => ({
+          ...i,
+          quantity: action.quantity
+        }))
+      };
+    }
+
     default:
       return state;
   }
