@@ -11,18 +11,19 @@ interface Props {
 }
 
 const CategoryNavigation: React.FC<Props> = ({ categories }) => {
-  const { asPath } = useRouter();
+  const { asPath, query } = useRouter();
   const opaque = useHeaderScroll();
 
   return (
     <nav className={clsx(styles.root, opaque && styles.opaque)}>
       {categories.map((cat, i) => {
         const url = i ? `/menu/${cat.slug}` : "/menu";
+        const isActive = asPath === url || cat.slug === query.ref;
         return (
           <Link
             key={cat.id}
             href={url}
-            className={clsx(styles.link, asPath === url && styles.active)}
+            className={clsx(styles.link, isActive && styles.active)}
           >
             {cat.namePl}
           </Link>
