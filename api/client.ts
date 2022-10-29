@@ -17,10 +17,13 @@ interface PageProps {
 let apolloClient: ApolloClient<NormalizedCacheObject>;
 
 function createApolloClient() {
+  const ssrMode = typeof window === "undefined";
+  const uri = ssrMode ? process.env.API_URL : process.env.NEXT_PUBLIC_API_URL;
+
   return new ApolloClient({
-    ssrMode: typeof window === "undefined",
+    ssrMode,
     link: new HttpLink({
-      uri: process.env.NEXT_PUBLIC_API_URL, // Server URL (must be absolute)
+      uri, // Server URL (must be absolute)
       credentials: "same-origin" // Additional fetch() options like `credentials` or `headers`
     }),
     cache: new InMemoryCache()
