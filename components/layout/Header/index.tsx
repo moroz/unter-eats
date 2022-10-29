@@ -4,11 +4,13 @@ import styles from "./Header.module.sass";
 import Logo from "./artesano_logo.svg";
 import clsx from "clsx";
 import useHeaderScroll from "@/hooks/useHeaderScroll";
+import useCart from "@/hooks/useCart";
 
 interface Props {}
 
 const Header: React.FC<Props> = () => {
   const opaque = useHeaderScroll();
+  const { items } = useCart();
 
   return (
     <header className={clsx(styles.header, opaque && styles.opaque)}>
@@ -19,7 +21,7 @@ const Header: React.FC<Props> = () => {
         <Link href="/">Strona główna</Link>
         <Link href="/menu">Menu</Link>
         <Link href="/kontakt">Kontakt</Link>
-        <Link href="/koszyk">Koszyk</Link>
+        <Link href="/koszyk">Koszyk ({items.length})</Link>
       </nav>
     </header>
   );
