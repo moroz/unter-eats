@@ -13,7 +13,7 @@ phases:
     commands:
       - echo Build started on `date`
       - echo Building the Docker image...
-      - docker build -t $REPOSITORY_URI:$GIT_BRANCH --cache-from $REPOSITORY_URI:$GIT_BRANCH --build-arg BUILDKIT_INLINE_CACHE=1 .
+      - docker build -t $REPOSITORY_URI:$GIT_BRANCH --cache-from $REPOSITORY_URI:$GIT_BRANCH --build-arg BUILDKIT_INLINE_CACHE=1 --build-arg NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL .
       - docker tag $REPOSITORY_URI:$GIT_BRANCH $REPOSITORY_URI:$IMAGE_TAG
   post_build:
     commands:
