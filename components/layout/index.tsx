@@ -1,7 +1,9 @@
 import { PAGE_TITLE } from "@/config";
+import useCart from "@/hooks/useCart";
 import { Category } from "@interfaces";
 import Head from "next/head";
 import React from "react";
+import CartModal from "../CartModal";
 import CategoryNavigation from "../CategoryNavigation";
 import Footer from "./Footer";
 import Header from "./Header";
@@ -14,6 +16,7 @@ interface Props {
 }
 
 const Layout: React.FC<Props> = ({ children, title, categories }) => {
+  const { open } = useCart();
   return (
     <div className={styles.layout}>
       <Head>
@@ -26,6 +29,7 @@ const Layout: React.FC<Props> = ({ children, title, categories }) => {
         {children}
       </main>
       <Footer />
+      {open && <CartModal />}
     </div>
   );
 };

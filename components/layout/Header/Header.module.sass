@@ -14,13 +14,13 @@
   p, h1
     margin: 0
   
-  a
+  a, button
     &:hover
       background: var(--surface-1dp)
 
   &.opaque
     background: var(--surface-1dp)
-    a
+    a, button
       &:hover
         background: var(--surface-2dp)
 
@@ -39,11 +39,15 @@
 
 .navbar
   margin-left: auto
+  display: flex
 
   a
+    display: inline-block
+
+  a, button
+    cursor: pointer
     color: var(--emphasis-color)
     font-weight: 600
-    display: inline-block
     height: var(--header-height)
     line-height: var(--header-height)
     text-transform: uppercase

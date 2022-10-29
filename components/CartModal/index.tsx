@@ -1,15 +1,14 @@
 import useCart from "@/hooks/useCart";
-import { calculateTotal, transformProducts } from "@/lib/cart/CartHelpers";
+import { transformProducts, calculateTotal } from "@/lib/cart/CartHelpers";
 import { useGetProductsQuery } from "@api/queries";
-import Layout from "@layout";
 import React, { useMemo } from "react";
+import styles from "./CartModal.module.sass";
 
 interface Props {}
 
-const CartPage: React.FC<Props> = () => {
-  const { items, removeItem } = useCart();
+const CartModal: React.FC<Props> = () => {
+  const { toggleCart, items, removeItem } = useCart();
   const ids = items.map((i) => i.id);
-
   const { data } = useGetProductsQuery(ids);
   const products = transformProducts(data?.products);
   const grandTotal = useMemo(() => {
@@ -17,8 +16,10 @@ const CartPage: React.FC<Props> = () => {
     return calculateTotal(items, data?.products);
   }, [items, data?.products]);
 
+  if (!products) return null;
+
   return (
-    <Layout title="Koszyk">
+    <div className={styles.modal}>
       {data && (
         <ul>
           {items.map(({ id, quantity }) => {
@@ -34,8 +35,9 @@ const CartPage: React.FC<Props> = () => {
         </ul>
       )}
       <p>Grand total: {grandTotal}</p>
-    </Layout>
+      <button onClick={toggleCart}>Close cart</button>
+    </div>
   );
 };
 
-export default CartPage;
+export default CartModal;

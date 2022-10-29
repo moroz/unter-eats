@@ -1,7 +1,7 @@
 import { CartActionType } from "@/lib/cart/CartAction";
 import { CartState } from "@/lib/cart/CartState";
 import CartReducer, { initialState } from "@/lib/cart/reducer";
-import { useReducer, useCallback, useMemo, useEffect } from "react";
+import { useReducer, useCallback, useEffect, useState } from "react";
 
 const CART_KEY = "__ARTESANO_CART";
 
@@ -10,6 +10,12 @@ const persist = (state: CartState) => {
 };
 
 export default function useCartReducer() {
+  const [cartOpen, setCartOpen] = useState(false);
+
+  const toggleCart = useCallback(() => {
+    setCartOpen((t) => !t);
+  }, [setCartOpen]);
+
   const [state, dispatch] = useReducer(
     CartReducer,
     initialState,
@@ -59,6 +65,8 @@ export default function useCartReducer() {
     items,
     removeItem,
     addItem,
-    changeItemQuantity
+    changeItemQuantity,
+    open: cartOpen,
+    toggleCart
   };
 }
