@@ -1,3 +1,4 @@
+import { PaymentLogos } from "@components";
 import React from "react";
 import styles from "./Footer.module.sass";
 
@@ -13,6 +14,7 @@ const Footer: React.FC<Props> = () => {
         </a>
         . All rights reserved.
       </p>
+      <PaymentLogos />
     </footer>
   );
 };

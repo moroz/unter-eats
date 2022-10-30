@@ -1,0 +1,19 @@
+$logo-base-height: 1.5rem
+
+.root
+  --base-height: #{$logo-base-height}
+  display: flex
+  justify-content: center
+
+  svg
+    height: var(--base-height)
+    width: auto
+
+.visa
+  height: var(--base-height)
+  overflow: hidden
+  display: flex
+  align-items: center
+
+  svg
+    height: calc(var(--base-height) * 2)
