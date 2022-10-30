@@ -1,6 +1,7 @@
 import { PAGE_TITLE } from "@/config";
 import useCart from "@/hooks/useCart";
 import { Category } from "@interfaces";
+import clsx from "clsx";
 import Head from "next/head";
 import React from "react";
 import CartModal from "../CartModal";
@@ -16,7 +17,7 @@ interface Props {
 }
 
 const Layout: React.FC<Props> = ({ children, title, categories }) => {
-  const { open } = useCart();
+  const { toggleCart, open } = useCart();
   return (
     <div className={styles.layout}>
       <Head>
@@ -29,6 +30,10 @@ const Layout: React.FC<Props> = ({ children, title, categories }) => {
         {children}
       </main>
       <Footer />
+      <div
+        className={clsx(styles.overlay, open && styles.open)}
+        onClick={toggleCart}
+      />
       {open && <CartModal />}
     </div>
   );

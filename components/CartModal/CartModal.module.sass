@@ -1,13 +1,11 @@
 @import ../../styles/_variables.sass
 
-$overlay-width: rem-calc(590)
-
 .modal
   position: fixed
   top: 0
   bottom: 0
   right: 0
-  width: $overlay-width
+  width: $cart-modal-width
   background: var(--surface-1dp)
   z-index: 11
   display: flex
@@ -25,8 +23,16 @@ $overlay-width: rem-calc(590)
   background: var(--secondary)
   padding: 1rem 2.0rem 4.0rem
   color: white
-  font-size: 1.2em
+  font-size: 2rem
   font-weight: bold
+
+.grandTotal
+  display: flex
+  justify-content: space-between
+  margin-bottom: 1rem
+
+  p
+    margin: 0
 
 .close
   position: absolute
@@ -37,15 +43,6 @@ $overlay-width: rem-calc(590)
   border: 0
   width: 2.5rem
   height: 2.5rem
-
-.overlay
-  position: fixed
-  top: 0
-  left: 0
-  right: $overlay-width
-  bottom: 0
-  background: transparentize($secondary, .1)
-  z-index: 10
 
 .cta
   width: 100%

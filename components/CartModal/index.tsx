@@ -27,35 +27,34 @@ const CartModal: React.FC<Props> = () => {
   if (!lastResult) return null;
 
   return (
-    <>
-      <div className={styles.overlay} onClick={toggleCart} />
-      <div className={styles.modal}>
-        <button onClick={toggleCart} className={styles.close}>
-          &times;
-        </button>
-        <section className={styles.content}>
-          {lastResult && (
-            <ul>
-              {items.map(({ id, quantity }) => {
-                const product = lastResult[id];
-                if (!product) return null;
-                return (
-                  <li key={id}>
-                    {product.namePl}, {product.price} &times; {quantity}
-                    <button onClick={() => removeItem(id)}>Remove</button>
-                  </li>
-                );
-              })}
-            </ul>
-          )}
-        </section>
-        <section className={styles.summary}>
+    <div className={styles.modal}>
+      <button onClick={toggleCart} className={styles.close}>
+        &times;
+      </button>
+      <section className={styles.content}>
+        {lastResult && (
+          <ul>
+            {items.map(({ id, quantity }) => {
+              const product = lastResult[id];
+              if (!product) return null;
+              return (
+                <li key={id}>
+                  {product.namePl}, {product.price} &times; {quantity}
+                  <button onClick={() => removeItem(id)}>Remove</button>
+                </li>
+              );
+            })}
+          </ul>
+        )}
+      </section>
+      <section className={styles.summary}>
+        <div className={styles.grandTotal}>
           <p>Suma:</p>
           <p>{grandTotal} zł</p>
-          <button className={styles.cta}>Do kasy</button>
-        </section>
-      </div>
-    </>
+        </div>
+        <button className={styles.cta}>Do kasy</button>
+      </section>
+    </div>
   );
 };
 
