@@ -1193,6 +1193,18 @@
   resolved "https://registry.yarnpkg.com/@rushstack/eslint-patch/-/eslint-patch-1.2.0.tgz#8be36a1f66f3265389e90b5f9c9962146758f728"
   integrity sha512-sXo/qW2/pAcmT43VoRKOJbDOfV3cYpq3szSVfIThQXNt+E4DfKj361vaAt3c88U5tPUxzEswam7GW48PJqtKAg==
 
+"@stripe/react-stripe-js@^1.14.1":
+  version "1.14.1"
+  resolved "https://registry.yarnpkg.com/@stripe/react-stripe-js/-/react-stripe-js-1.14.1.tgz#7b748fa039beb79b549b88e9389fd6148ac8c54f"
+  integrity sha512-PpXsi/NkiDGKILS6bWcM8QwBdC39U7QAT9KFopQ2CdO+kcbXv9l/e8M1saXAQC5AwdgQTTk6Zl0+//qp1faRiw==
+  dependencies:
+    prop-types "^15.7.2"
+
+"@stripe/stripe-js@^1.42.0":
+  version "1.42.0"
+  resolved "https://registry.yarnpkg.com/@stripe/stripe-js/-/stripe-js-1.42.0.tgz#6074d0ac184bd70c9e5b5bc00e126719277e0128"
+  integrity sha512-ZaQpZo5PRv/mN6157OywMW4fc7FIS+eI/tS12I1gU9MdvnL8fzFktuAU/g9FyUOL22E4t9hF1tsfLQAZcQDokQ==
+
 "@svgr/babel-plugin-add-jsx-attribute@^6.5.1":
   version "6.5.1"
   resolved "https://registry.yarnpkg.com/@svgr/babel-plugin-add-jsx-attribute/-/babel-plugin-add-jsx-attribute-6.5.1.tgz#74a5d648bd0347bda99d82409d87b8ca80b9a1ba"

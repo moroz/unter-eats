@@ -12,6 +12,7 @@
   --secondary: #{$secondary}
   --dimmed-color: #{$dimmed-color}
   --primary-hover: #{lighten($primary, 4%)}
+  --stripe-label-color: black
 
   @each $level, $color in $surface-light
     --surface-#{$level}: #{$color}
@@ -29,6 +30,7 @@
     --footer-bg: #{$footer-bg-dark}
     --dimmed-color: #{$dimmed-color-dark}
     --emphasis-color: #{$emphasis-color}
+    --stripe-label-color: #a4a4a4
     @each $level, $color in $surface-levels
       --surface-#{$level}: #{$color}
 
@@ -66,4 +68,5 @@ a:link, a:visited
   @media screen and (max-width: #{$content-width})
     width: 100%
     margin: 0
+    padding: 0 1.5rem 3rem
 

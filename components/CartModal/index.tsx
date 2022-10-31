@@ -2,6 +2,7 @@ import useCart from "@/hooks/useCart";
 import { transformProducts, calculateTotal } from "@/lib/cart/CartHelpers";
 import { useGetProductsQuery } from "@api/queries";
 import { Product } from "@interfaces";
+import Link from "next/link";
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import styles from "./CartModal.module.sass";
 
@@ -52,7 +53,9 @@ const CartModal: React.FC<Props> = () => {
           <p>Suma:</p>
           <p>{grandTotal} zł</p>
         </div>
-        <button className={styles.cta}>Do kasy</button>
+        <Link href="/checkout" className={styles.cta} onClick={toggleCart}>
+          Do kasy
+        </Link>
       </section>
     </div>
   );
