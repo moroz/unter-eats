@@ -1,42 +1,44 @@
 import useCart from "@/hooks/useCart";
-import { transformProducts, calculateTotal } from "@/lib/cart/CartHelpers";
-import { useGetProductsQuery } from "@api/queries";
-import { Product } from "@interfaces";
-import Link from "next/link";
-import React, { useEffect, useMemo, useState } from "react";
+import { formatPrice } from "@/lib/priceHelpers";
+import { useCartProductsQuery } from "@api/queries";
+import React, { useCallback, useEffect } from "react";
 import Button from "../Button";
 import styles from "./CartModal.module.sass";
+import CloseIcon from "./xmark.svg";
 
 interface Props {}
 
 const CartModal: React.FC<Props> = () => {
-  const [lastResult, setLastResult] = useState<Record<string, Product>>({});
+  const { toggleCart, items, removeItem } = useCart();
+  const { products, loading, grandTotal } = useCartProductsQuery();
 
-  const { toggleCart, items, removeItem, ids } = useCart();
-  const { data } = useGetProductsQuery(ids);
+  const handleKeyDown = useCallback(
+    (e: KeyboardEvent) => {
+      if (e.key === "Escape") toggleCart();
+    },
+    [toggleCart]
+  );
 
   useEffect(() => {
-    if (!data?.products) return;
-    setLastResult(transformProducts(data.products));
-  }, [data]);
+    window.addEventListener("keydown", handleKeyDown);
 
-  const grandTotal = useMemo(() => {
-    if (!Object.entries(lastResult).length) return 0;
-    return calculateTotal(items, lastResult);
-  }, [items, lastResult]);
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, []);
 
-  if (!lastResult) return null;
+  if (!products) return null;
 
   return (
     <div className={styles.modal}>
       <button onClick={toggleCart} className={styles.close}>
-        &times;
+        Zamknij <CloseIcon />
       </button>
       <section className={styles.content}>
-        {lastResult && (
+        {!loading && (
           <ul>
             {items.map(({ id, quantity }) => {
-              const product = lastResult[id];
+              const product = products[id];
               if (!product) return null;
               return (
                 <li key={id}>
@@ -49,10 +51,15 @@ const CartModal: React.FC<Props> = () => {
         )}
       </section>
       <section className={styles.summary}>
-        <div className={styles.grandTotal}>
-          <p>Suma:</p>
-          <p>{grandTotal} zł</p>
-        </div>
+        <table className={styles.summaryTable}>
+          <tbody>
+            <tr>
+              <th>Podsuma:</th>
+              <td>{formatPrice(grandTotal)}</td>
+            </tr>
+          </tbody>
+        </table>
+        <p>Koszty dostawy zostaną wyliczone w następnym etapie.</p>
         <Button href="/checkout" onClick={toggleCart}>
           Do kasy
         </Button>

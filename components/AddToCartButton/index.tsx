@@ -1,4 +1,5 @@
 import useCart from "@/hooks/useCart";
+import { formatPrice } from "@/lib/priceHelpers";
 import { Product } from "@interfaces";
 import clsx from "clsx";
 import React, { useCallback } from "react";
@@ -19,7 +20,7 @@ const AddToCartButton: React.FC<Props> = ({ product, className }) => {
 
   return (
     <Button onClick={onClick} className={clsx(styles.cta, className)}>
-      Do koszyka &bull; {product.price} PLN
+      Do koszyka · {formatPrice(product.price)}
     </Button>
   );
 };
