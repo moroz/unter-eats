@@ -17,10 +17,19 @@ const PaymentForm: React.FC<Props> = ({ amount }) => {
   const elements = useElements();
 
   const onSubmit: FormEventHandler<HTMLFormElement> = useCallback(
-    (e) => {
+    async (e) => {
       e.preventDefault();
 
       if (!stripe || !elements) return;
+
+      const result = await stripe.confirmPayment({
+        elements,
+        confirmParams: {
+          return_url: location.origin + "/"
+        }
+      });
+
+      console.log(result);
     },
     [elements, stripe]
   );
