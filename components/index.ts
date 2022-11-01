@@ -11,3 +11,4 @@ export { default as StripeProvider } from "./StripeProvider";
 export { default as Button } from "./Button";
 export { default as CartItem } from "./CartItem";
 export { default as QuantityInput } from "./QuantityInput";
+export { default as CheckoutLayout } from "./CheckoutLayout";

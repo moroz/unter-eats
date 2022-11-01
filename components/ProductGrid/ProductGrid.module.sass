@@ -1,7 +1,12 @@
+@import ../../styles/_variables.sass
+
 .grid
   display: grid
   gap: 2.5rem
   grid-template-columns: repeat(3, 1fr)
   align-items: stretch
-
   margin-bottom: 5rem
+
+  +mobile
+    grid-template-columns: 1fr 1fr
+    gap: 1rem

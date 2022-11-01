@@ -24,6 +24,7 @@
       "@interfaces": ["./interfaces/index.ts"],
       "@layout": ["./components/layout/index.tsx"],
       "@components": ["./components/index.ts"],
+      "@components/*": ["./components/*"],
       "@hooks/*": ["./hooks/*"],
       "@lib/*": ["./lib/*"],
       "@icons/*": ["./icons/*"],

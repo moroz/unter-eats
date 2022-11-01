@@ -1,0 +1,49 @@
+@import ../../../styles/_variables.sass
+
+.optionalText
+  font-size: .75em
+  color: #555
+
+.root
+  grid-column: span var(--input-col-span)
+  width: 100%
+
+  p + &
+    margin-top: .25rem
+
+  &:not(:last-child)
+    margin-bottom: 1rem
+
+  &:has(.help)
+    margin-bottom: .5rem
+
+.help
+  margin-bottom: .5rem
+  font-weight: normal
+  margin-top: 0
+
+.label
+  display: block
+  font-weight: 400
+  font-size: 15px
+  color: var(--stripe-label-color)
+  margin-bottom: .25rem
+
+.help
+  color: var(--fg-color)
+  font-size: .8rem
+  display: block
+  margin-top: .25rem
+
+.input
+  height: $input-height
+  background: var(--surface-1dp)
+  border: 1px solid var(--emphasis-color)
+  border-radius: 0
+  width: 100%
+  padding: 0 .75rem
+  
+  &:focus
+    border-radius: 0
+    outline: 1px solid var(--primary)
+    border-color: var(--primary)
