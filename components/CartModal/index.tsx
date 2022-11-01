@@ -3,13 +3,15 @@ import { formatPrice } from "@/lib/priceHelpers";
 import { useCartProductsQuery } from "@api/queries";
 import React, { useCallback, useEffect } from "react";
 import Button from "../Button";
+import CartItem from "../CartItem";
+import PaymentLogos from "../PaymentLogos";
 import styles from "./CartModal.module.sass";
 import CloseIcon from "./xmark.svg";
 
 interface Props {}
 
 const CartModal: React.FC<Props> = () => {
-  const { toggleCart, items, removeItem } = useCart();
+  const { toggleCart, items } = useCart();
   const { products, loading, grandTotal } = useCartProductsQuery();
 
   const handleKeyDown = useCallback(
@@ -25,7 +27,7 @@ const CartModal: React.FC<Props> = () => {
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
     };
-  }, []);
+  }, [handleKeyDown]);
 
   if (!products) return null;
 
@@ -36,18 +38,15 @@ const CartModal: React.FC<Props> = () => {
       </button>
       <section className={styles.content}>
         {!loading && (
-          <ul>
-            {items.map(({ id, quantity }) => {
-              const product = products[id];
-              if (!product) return null;
-              return (
-                <li key={id}>
-                  {product.namePl}, {product.price} &times; {quantity}
-                  <button onClick={() => removeItem(id)}>Remove</button>
-                </li>
-              );
-            })}
-          </ul>
+          <>
+            {items.map((item) => (
+              <CartItem
+                product={products[item.id]}
+                cartItem={item}
+                key={item.id}
+              />
+            ))}
+          </>
         )}
       </section>
       <section className={styles.summary}>
@@ -63,6 +62,7 @@ const CartModal: React.FC<Props> = () => {
         <Button href="/checkout" onClick={toggleCart}>
           Do kasy
         </Button>
+        <PaymentLogos className={styles.paymentMethods} />
       </section>
     </div>
   );
