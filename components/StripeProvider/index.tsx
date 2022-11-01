@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Elements, PaymentElement } from "@stripe/react-stripe-js";
+import { Elements } from "@stripe/react-stripe-js";
 import { Appearance, loadStripe } from "@stripe/stripe-js";
 import { useCreatePaymentIntentMutation } from "@api/mutations";
 
