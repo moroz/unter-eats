@@ -1,0 +1,30 @@
+@import ../../styles/_variables.sass
+
+$input-base-width: $input-height - .25
+
+.group
+  display: flex
+  height: $input-base-width
+  width: 3 * $input-base-width
+  border: 1.5px solid var(--fg-color)
+  overflow: hidden
+
+  button, input
+    border: 0
+    text-align: center
+    width: $input-base-width
+    height: 100%
+    background: transparent
+
+  svg
+    width: 1rem
+    height: 1rem
+    fill: currentColor
+
+  button
+    display: flex
+    align-items: center
+    justify-content: center
+
+    &:not(:disabled):hover
+      background: var(--surface-4dp, var(--surface-2dp))

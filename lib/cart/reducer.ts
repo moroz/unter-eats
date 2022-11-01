@@ -44,10 +44,14 @@ const CartReducer: Reducer<CartState, CartAction> = (
 
       return {
         ...state,
-        items: state.items.map((i) => ({
-          ...i,
-          quantity: action.quantity
-        }))
+        items: state.items.map((i) =>
+          i.id === action.id
+            ? {
+                ...i,
+                quantity: action.quantity
+              }
+            : i
+        )
       };
     }
 
