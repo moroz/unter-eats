@@ -1,12 +1,13 @@
 import useCart from "@/hooks/useCart";
 import { formatPrice } from "@/lib/priceHelpers";
 import { useCartProductsQuery } from "@api/queries";
+import Head from "next/head";
 import React, { useCallback, useEffect } from "react";
 import Button from "../Button";
 import CartItem from "../CartItem";
 import PaymentLogos from "../PaymentLogos";
 import styles from "./CartModal.module.sass";
-import CloseIcon from "./xmark.svg";
+import CloseIcon from "@icons/xmark.svg";
 
 interface Props {}
 
@@ -33,9 +34,13 @@ const CartModal: React.FC<Props> = () => {
 
   return (
     <div className={styles.modal}>
+      <Head>
+        <html className="noscroll" />
+      </Head>
       <button onClick={toggleCart} className={styles.close}>
         Zamknij <CloseIcon />
       </button>
+      <h2>Koszyk</h2>
       <section className={styles.content}>
         {!loading && (
           <>

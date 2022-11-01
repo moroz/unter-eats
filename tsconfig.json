@@ -25,6 +25,8 @@
       "@layout": ["./components/layout/index.tsx"],
       "@components": ["./components/index.ts"],
       "@hooks/*": ["./hooks/*"],
+      "@lib/*": ["./lib/*"],
+      "@icons/*": ["./icons/*"],
       "@/*": ["./*"]
     }
   },
