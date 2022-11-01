@@ -2,6 +2,7 @@ import useCart from "@/hooks/useCart";
 import { Product } from "@interfaces";
 import clsx from "clsx";
 import React, { useCallback } from "react";
+import Button from "../Button";
 import styles from "./AddToCartButton.module.sass";
 
 interface Props {
@@ -17,9 +18,9 @@ const AddToCartButton: React.FC<Props> = ({ product, className }) => {
   }, [addItem, product.id]);
 
   return (
-    <button className={clsx(styles.cta, className)} onClick={onClick}>
-      Do koszyka &bull; {product.price} zł
-    </button>
+    <Button onClick={onClick} className={clsx(styles.cta, className)}>
+      Do koszyka &bull; {product.price} PLN
+    </Button>
   );
 };
 

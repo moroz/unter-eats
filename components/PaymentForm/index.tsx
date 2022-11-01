@@ -1,58 +1,38 @@
-import React, { useEffect, useMemo } from "react";
-import { Elements, PaymentElement } from "@stripe/react-stripe-js";
-import { Appearance, loadStripe } from "@stripe/stripe-js";
-import { useCreatePaymentIntentMutation } from "@api/mutations";
+import React, { FormEventHandler, useCallback } from "react";
+import {
+  PaymentElement,
+  useElements,
+  useStripe
+} from "@stripe/react-stripe-js";
+import Button from "../Button";
+import Padlock from "./lock.svg";
+import styles from "./PaymentForm.module.sass";
 
 interface Props {
   amount: number;
 }
 
-const stripePromise = loadStripe(
-  process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_TOKEN!
-);
-
-const buildTheme = (): Appearance => {
-  const computed = getComputedStyle(document.body);
-
-  return {
-    variables: {
-      fontFamily: computed.getPropertyValue("font-family"),
-      borderRadius: "0px",
-      colorBackground: computed.getPropertyValue("--surface-1dp"),
-      colorPrimary: computed.getPropertyValue("--primary"),
-      colorText: computed.getPropertyValue("--stripe-label-color"),
-      colorTextSecondary: computed.getPropertyValue("--fg-color")
-    }
-  };
-};
-
 const PaymentForm: React.FC<Props> = ({ amount }) => {
-  const [mutate, { data }] = useCreatePaymentIntentMutation();
+  const stripe = useStripe();
+  const elements = useElements();
 
-  const isDarkMode = useMemo(() => {
-    if (typeof window === "undefined") return false;
-    return !!window.matchMedia?.("(prefers-color-scheme: dark)")?.matches;
-  }, []);
+  const onSubmit: FormEventHandler<HTMLFormElement> = useCallback(
+    (e) => {
+      e.preventDefault();
 
-  useEffect(() => {
-    mutate({ variables: { amount } });
-  }, [mutate]);
-
-  if (!data) return null;
-  const clientSecret = data.result.clientSecret;
-  const theme = isDarkMode ? "night" : "stripe";
+      if (!stripe || !elements) return;
+    },
+    [elements, stripe]
+  );
 
   return (
-    <Elements
-      stripe={stripePromise}
-      options={{
-        clientSecret,
-        locale: "pl",
-        appearance: buildTheme()
-      }}
-    >
+    <form onSubmit={onSubmit}>
       <PaymentElement />
-    </Elements>
+      <Button type="submit" className={styles.button}>
+        <Padlock />
+        Zapłać {amount / 100} PLN
+      </Button>
+    </form>
   );
 };
 

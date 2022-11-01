@@ -28,9 +28,10 @@ export default function useCartReducer() {
     }
   );
   const { items } = state;
+  const [allIds, setAllIds] = useState(new Set(items.map((i) => i.id)));
 
   useEffect(() => {
-    localStorage.setItem(CART_KEY, JSON.stringify(state));
+    persist(state);
   }, [state]);
 
   const addItem = useCallback(
@@ -39,6 +40,7 @@ export default function useCartReducer() {
         type: CartActionType.AddItem,
         id
       });
+      setAllIds((all) => new Set([...all, id]));
     },
     [dispatch]
   );
@@ -67,6 +69,7 @@ export default function useCartReducer() {
     addItem,
     changeItemQuantity,
     open: cartOpen,
-    toggleCart
+    toggleCart,
+    ids: [...allIds]
   };
 }

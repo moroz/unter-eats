@@ -13,6 +13,7 @@
   --dimmed-color: #{$dimmed-color}
   --primary-hover: #{lighten($primary, 4%)}
   --stripe-label-color: black
+  --input-placeholder: #{$input-placeholder}
 
   @each $level, $color in $surface-light
     --surface-#{$level}: #{$color}
@@ -31,6 +32,7 @@
     --dimmed-color: #{$dimmed-color-dark}
     --emphasis-color: #{$emphasis-color}
     --stripe-label-color: #a4a4a4
+    --input-placeholder: #{$input-placeholder-dark}
     @each $level, $color in $surface-levels
       --surface-#{$level}: #{$color}
 

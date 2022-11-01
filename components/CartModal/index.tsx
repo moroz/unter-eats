@@ -3,7 +3,8 @@ import { transformProducts, calculateTotal } from "@/lib/cart/CartHelpers";
 import { useGetProductsQuery } from "@api/queries";
 import { Product } from "@interfaces";
 import Link from "next/link";
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
+import Button from "../Button";
 import styles from "./CartModal.module.sass";
 
 interface Props {}
@@ -11,8 +12,7 @@ interface Props {}
 const CartModal: React.FC<Props> = () => {
   const [lastResult, setLastResult] = useState<Record<string, Product>>({});
 
-  const { toggleCart, items, removeItem } = useCart();
-  const ids = items.map((i) => i.id);
+  const { toggleCart, items, removeItem, ids } = useCart();
   const { data } = useGetProductsQuery(ids);
 
   useEffect(() => {
@@ -53,9 +53,9 @@ const CartModal: React.FC<Props> = () => {
           <p>Suma:</p>
           <p>{grandTotal} zł</p>
         </div>
-        <Link href="/checkout" className={styles.cta} onClick={toggleCart}>
+        <Button href="/checkout" onClick={toggleCart}>
           Do kasy
-        </Link>
+        </Button>
       </section>
     </div>
   );
