@@ -52,8 +52,17 @@ const Checkout: React.FC<Props> = () => {
             <Logo />
           </Link>
           <InputGroup columns={2}>
-            <InputField {...register("firstName")} label="Imię" required />
-            <InputField {...register("lastName")} label="Nazwisko" />
+            <InputField
+              {...register("firstName")}
+              label="Imię"
+              required
+              autoComplete="given-name"
+            />
+            <InputField
+              {...register("lastName")}
+              label="Nazwisko"
+              autoComplete="family-name"
+            />
           </InputGroup>
           <InputGroup columns={2}>
             <InputField
@@ -61,12 +70,14 @@ const Checkout: React.FC<Props> = () => {
               label="E-mail"
               helperText="Na ten adres otrzymasz potwierdzenie zamówienia. Nie wysyłamy treści reklamowych."
               required
+              autoComplete="email"
             />
             <InputField
               {...register("phoneNo")}
               label="Telefon kontaktowy"
               helperText="Pod ten numer będziemy dzwonić w razie pytań dotyczących dostawy."
               required
+              autoComplete="tel"
             />
           </InputGroup>
           <RadioGroup label="Sposób dostawy">
@@ -86,6 +97,7 @@ const Checkout: React.FC<Props> = () => {
               {...register("shippingAddress")}
               label="Adres dostawy"
               required
+              autoComplete="street-address"
             />
           )}
           <Textarea label="Uwagi do zamówienia" {...register("remarks")} />
