@@ -51,7 +51,7 @@ const Checkout: React.FC<Props> = () => {
             label="Adres dostawy"
             required
           />
-          <Button type="submit">Zamawiam z obowiązkiem zapłaty</Button>
+          <Button type="submit">Zamawiam za 21,36 zł</Button>
         </FormWrapper>
         <StripeProvider amount={2136}>
           <PaymentForm amount={2136} />

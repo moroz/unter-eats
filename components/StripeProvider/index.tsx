@@ -33,6 +33,9 @@ const buildTheme = (): Appearance => {
       },
       ".Input:focus": {
         borderColor: computed.getPropertyValue("--primary")
+      },
+      ".Tab": {
+        borderColor: computed.getPropertyValue("--fg-color")
       }
     }
   };
@@ -52,7 +55,7 @@ const StripeProvider: React.FC<Props> = ({ amount, children }) => {
 
   // if (!data) return null;
   const clientSecret =
-    "pi_3LzQzDAoLiH0r9L91GiV66Lx_secret_Vez8Nrp01YBc6yeX0WGGpMl27";
+    "pi_3LzUSTAoLiH0r9L91AJUDkZc_secret_nuRwlsM3hFFGQgR5EiQwboj2p";
 
   return (
     <Elements

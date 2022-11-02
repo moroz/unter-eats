@@ -7,6 +7,7 @@ import {
 import Button from "../Button";
 import Padlock from "./lock.svg";
 import styles from "./PaymentForm.module.sass";
+import { formatPrice } from "@lib/priceHelpers";
 
 interface Props {
   amount: number;
@@ -36,10 +37,21 @@ const PaymentForm: React.FC<Props> = ({ amount }) => {
 
   return (
     <form onSubmit={onSubmit}>
-      <PaymentElement />
+      <p>
+        Płatności przetwarzane są bezpiecznie przy użyciu{" "}
+        <a
+          href="https://www.stripe.com"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Stripe
+        </a>
+        .
+      </p>
+      <PaymentElement options={{ fields: { billingDetails: "never" } }} />
       <Button type="submit" className={styles.button}>
         <Padlock />
-        Zapłać {amount / 100} PLN
+        Zapłać {formatPrice(21.36)}
       </Button>
     </form>
   );
