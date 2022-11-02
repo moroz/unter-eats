@@ -8,10 +8,13 @@ import {
   FormWrapper,
   InputField,
   RadioGroup,
-  RadioButton
+  RadioButton,
+  Textarea
 } from "@components/forms";
 import InputGroup from "@components/forms/InputGroup";
 import styles from "./Checkout.module.sass";
+import Link from "next/link";
+import { formatPrice } from "@lib/priceHelpers";
 
 interface Props {}
 
@@ -21,6 +24,7 @@ interface OrderParams {
   email: string;
   phoneNo: string;
   shippingAddress: string;
+  notes: string;
 }
 
 const Checkout: React.FC<Props> = () => {
@@ -40,7 +44,9 @@ const Checkout: React.FC<Props> = () => {
     <CheckoutLayout title="Checkout">
       <div className={styles.grid}>
         <FormWrapper {...methods} className={styles.form}>
-          <Logo className={styles.logo} />
+          <Link href="/">
+            <Logo className={styles.logo} />
+          </Link>
           <InputField
             {...register("fullName")}
             label="Imię i nazwisko"
@@ -79,7 +85,8 @@ const Checkout: React.FC<Props> = () => {
               required
             />
           )}
-          <Button type="submit">Zamawiam za 21,36 zł</Button>
+          <Textarea label="Uwagi do zamówienia" {...register("notes")} />
+          <Button type="submit">Zamawiam za {formatPrice(grandTotal)}</Button>
         </FormWrapper>
       </div>
     </CheckoutLayout>
