@@ -4,16 +4,16 @@ import { useCartProductsQuery } from "@api/queries";
 import Head from "next/head";
 import React, { useCallback, useEffect } from "react";
 import Button from "../Button";
-import CartItem from "../CartItem";
 import PaymentLogos from "../PaymentLogos";
 import styles from "./CartModal.module.sass";
 import CloseIcon from "@icons/xmark.svg";
+import Cart from "@components/Cart";
 
 interface Props {}
 
 const CartModal: React.FC<Props> = () => {
-  const { toggleCart, items } = useCart();
-  const { products, loading, grandTotal } = useCartProductsQuery();
+  const { toggleCart } = useCart();
+  const { products, productTotal } = useCartProductsQuery();
 
   const handleKeyDown = useCallback(
     (e: KeyboardEvent) => {
@@ -42,24 +42,14 @@ const CartModal: React.FC<Props> = () => {
       </button>
       <h2>Koszyk</h2>
       <section className={styles.content}>
-        {!loading && (
-          <>
-            {items.map((item) => (
-              <CartItem
-                product={products[item.id]}
-                cartItem={item}
-                key={item.id}
-              />
-            ))}
-          </>
-        )}
+        <Cart />
       </section>
       <section className={styles.summary}>
         <table className={styles.summaryTable}>
           <tbody>
             <tr>
               <th>Podsuma:</th>
-              <td>{formatPrice(grandTotal)}</td>
+              <td>{formatPrice(productTotal)}</td>
             </tr>
           </tbody>
         </table>

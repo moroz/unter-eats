@@ -33,10 +33,10 @@ export const useCartProductsQuery = () => {
   const { data, loading } = useGetProductsQuery(ids);
   const products = transformProducts(data?.products ?? []);
 
-  const grandTotal = useMemo(() => {
+  const productTotal = useMemo(() => {
     if (!Object.entries(products).length) return 0;
     return calculateTotal(items, products);
   }, [items, products]);
 
-  return { loading, products, grandTotal };
+  return { loading, products, productTotal };
 };

@@ -1,7 +1,5 @@
 import React from "react";
 import { Button, CheckoutLayout, Logo } from "@components";
-import useHydrated from "@hooks/useHydrated";
-import useCart from "@hooks/useCart";
 import { useCartProductsQuery } from "@api/queries";
 import { useForm } from "react-hook-form";
 import {
@@ -15,20 +13,23 @@ import InputGroup from "@components/forms/InputGroup";
 import styles from "./Checkout.module.sass";
 import Link from "next/link";
 import { formatPrice } from "@lib/priceHelpers";
+import Cart from "@components/Cart";
 
 interface Props {}
 
 interface OrderParams {
-  fullName: string;
+  firstName: string;
+  lastName?: string;
   deliveryMethod: "DELIVERY" | "PICKUP";
   email: string;
   phoneNo: string;
   shippingAddress: string;
-  notes: string;
+  remarks: string;
 }
 
+const SHIPPING_COST = 20;
+
 const Checkout: React.FC<Props> = () => {
-  const hydrated = useHydrated();
   const methods = useForm<OrderParams>({
     defaultValues: {
       deliveryMethod: "DELIVERY"
@@ -37,21 +38,23 @@ const Checkout: React.FC<Props> = () => {
   const { register, watch } = methods;
   const isDelivery = watch("deliveryMethod", "DELIVERY") === "DELIVERY";
 
-  const { items, ids } = useCart();
-  const { products, loading, grandTotal } = useCartProductsQuery();
+  // TODO: Add confirmation to leave site
+
+  const { productTotal } = useCartProductsQuery();
+
+  const grandTotal = productTotal + (isDelivery ? SHIPPING_COST : 0);
 
   return (
     <CheckoutLayout title="Checkout">
       <div className={styles.grid}>
         <FormWrapper {...methods} className={styles.form}>
-          <Link href="/">
-            <Logo className={styles.logo} />
+          <Link href="/" className={styles.logo}>
+            <Logo />
           </Link>
-          <InputField
-            {...register("fullName")}
-            label="Imię i nazwisko"
-            required
-          />
+          <InputGroup columns={2}>
+            <InputField {...register("firstName")} label="Imię" required />
+            <InputField {...register("lastName")} label="Nazwisko" />
+          </InputGroup>
           <InputGroup columns={2}>
             <InputField
               {...register("email")}
@@ -85,9 +88,38 @@ const Checkout: React.FC<Props> = () => {
               required
             />
           )}
-          <Textarea label="Uwagi do zamówienia" {...register("notes")} />
+          <Textarea label="Uwagi do zamówienia" {...register("remarks")} />
           <Button type="submit">Zamawiam za {formatPrice(grandTotal)}</Button>
         </FormWrapper>
+        <aside className={styles.cartSection}>
+          <Cart />
+          <section className={styles.summary}>
+            <table>
+              <tbody>
+                <tr>
+                  <th>Podsuma</th>
+                  <td>{formatPrice(productTotal)}</td>
+                </tr>
+                <tr>
+                  <th>Dostawa</th>
+                  <td>
+                    {isDelivery ? formatPrice(SHIPPING_COST) : "Bezpłatna"}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+          <section className={styles.total}>
+            <table>
+              <tbody>
+                <tr>
+                  <th>Suma</th>
+                  <td>{formatPrice(grandTotal)}</td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+        </aside>
       </div>
     </CheckoutLayout>
   );

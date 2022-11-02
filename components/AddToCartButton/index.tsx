@@ -14,6 +14,8 @@ interface Props {
 const AddToCartButton: React.FC<Props> = ({ product, className }) => {
   const { addItem } = useCart();
 
+  // TODO: Add effect when item added to cart
+
   const onClick = useCallback(() => {
     addItem(product.id);
   }, [addItem, product.id]);

@@ -15,6 +15,8 @@ interface Props {
 const CartItem: React.FC<Props> = ({ product, cartItem }) => {
   const { removeItem, changeItemQuantity } = useCart();
 
+  // TODO: Add option to revert removing item from cart
+
   const onChangeQuantity = useCallback(
     (quantity: number) => {
       changeItemQuantity(product.id, quantity);
