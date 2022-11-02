@@ -1,32 +1,46 @@
 import React from "react";
-import Layout from "@layout";
-import {
-  Button,
-  CheckoutLayout,
-  PaymentForm,
-  StripeProvider
-} from "@components";
+import { Button, CheckoutLayout, Logo } from "@components";
 import useHydrated from "@hooks/useHydrated";
 import useCart from "@hooks/useCart";
 import { useCartProductsQuery } from "@api/queries";
 import { useForm } from "react-hook-form";
-import { FormWrapper, InputField } from "@components/forms";
+import {
+  FormWrapper,
+  InputField,
+  RadioGroup,
+  RadioButton
+} from "@components/forms";
 import InputGroup from "@components/forms/InputGroup";
+import styles from "./Checkout.module.sass";
 
 interface Props {}
 
+interface OrderParams {
+  fullName: string;
+  deliveryMethod: "DELIVERY" | "PICKUP";
+  email: string;
+  phoneNo: string;
+  shippingAddress: string;
+}
+
 const Checkout: React.FC<Props> = () => {
   const hydrated = useHydrated();
-  const methods = useForm();
-  const { register } = methods;
+  const methods = useForm<OrderParams>({
+    defaultValues: {
+      deliveryMethod: "DELIVERY"
+    }
+  });
+  const { register, watch } = methods;
+  const isDelivery = watch("deliveryMethod", "DELIVERY") === "DELIVERY";
 
   const { items, ids } = useCart();
   const { products, loading, grandTotal } = useCartProductsQuery();
 
   return (
     <CheckoutLayout title="Checkout">
-      <InputGroup columns={2}>
-        <FormWrapper {...methods}>
+      <div className={styles.grid}>
+        <FormWrapper {...methods} className={styles.form}>
+          <Logo className={styles.logo} />
           <InputField
             {...register("fullName")}
             label="Imię i nazwisko"
@@ -46,17 +60,28 @@ const Checkout: React.FC<Props> = () => {
               required
             />
           </InputGroup>
-          <InputField
-            {...register("shippingAddress")}
-            label="Adres dostawy"
-            required
-          />
+          <RadioGroup label="Sposób dostawy">
+            <RadioButton
+              {...register("deliveryMethod")}
+              label="Dowóz do domu"
+              value="DELIVERY"
+            />
+            <RadioButton
+              {...register("deliveryMethod")}
+              label="Odbiór osobisty w lokalu"
+              value="PICKUP"
+            />
+          </RadioGroup>
+          {isDelivery && (
+            <InputField
+              {...register("shippingAddress")}
+              label="Adres dostawy"
+              required
+            />
+          )}
           <Button type="submit">Zamawiam za 21,36 zł</Button>
         </FormWrapper>
-        <StripeProvider amount={2136}>
-          <PaymentForm amount={2136} />
-        </StripeProvider>
-      </InputGroup>
+      </div>
     </CheckoutLayout>
   );
 };

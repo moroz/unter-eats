@@ -1,17 +1,15 @@
 import Link from "next/link";
 import React from "react";
 import styles from "./Header.module.sass";
-import Logo from "./artesano_logo.svg";
+import Logo from "../../Logo";
 import clsx from "clsx";
 import useHeaderScroll from "@/hooks/useHeaderScroll";
-import useCart from "@/hooks/useCart";
 import CartButton from "@/components/CartButton";
 
 interface Props {}
 
 const Header: React.FC<Props> = () => {
   const opaque = useHeaderScroll();
-  const { items, toggleCart } = useCart();
 
   return (
     <header className={clsx(styles.header, opaque && styles.opaque)}>

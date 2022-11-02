@@ -12,3 +12,4 @@ export { default as Button } from "./Button";
 export { default as CartItem } from "./CartItem";
 export { default as QuantityInput } from "./QuantityInput";
 export { default as CheckoutLayout } from "./CheckoutLayout";
+export { default as Logo } from "./Logo";
