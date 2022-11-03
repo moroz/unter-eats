@@ -28,7 +28,7 @@ export default function useCartReducer() {
     }
   );
   const { items } = state;
-  const [allIds, setAllIds] = useState(new Set(items.map((i) => i.id)));
+  const [allIds, setAllIds] = useState(new Set(items.map((i) => i.productId)));
 
   useEffect(() => {
     persist(state);

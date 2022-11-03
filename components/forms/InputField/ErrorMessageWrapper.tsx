@@ -1,7 +1,8 @@
 import { ErrorMessage } from "@hookform/error-message";
+import styles from "./InputField.module.sass";
 
 const ERROR_MESSAGES: Record<any, string> = {
-  required: "can't be blank"
+  required: "To pole nie może być puste."
 };
 
 const ErrorMessageWrapper: typeof ErrorMessage = ({
@@ -15,7 +16,7 @@ const ErrorMessageWrapper: typeof ErrorMessage = ({
   return (
     <ErrorMessage
       as="span"
-      className="error-explanation help is-danger"
+      className={styles.errorMessage}
       errors={errors}
       name={name}
       message={error.message || ERROR_MESSAGES[error.type]}

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { Button, CheckoutLayout, Logo } from "@components";
 import { useCartProductsQuery } from "@api/queries";
 import { useForm } from "react-hook-form";
@@ -14,46 +14,53 @@ import styles from "./Checkout.module.sass";
 import Link from "next/link";
 import { formatPrice } from "@lib/priceHelpers";
 import Cart from "@components/Cart";
+import { DeliveryType, OrderParams } from "@interfaces";
+import { useCreateOrderMutation } from "@api/mutations";
+import useCart from "@hooks/useCart";
 
 interface Props {}
-
-interface OrderParams {
-  firstName: string;
-  lastName?: string;
-  deliveryMethod: "DELIVERY" | "PICKUP";
-  email: string;
-  phoneNo: string;
-  shippingAddress: string;
-  remarks: string;
-}
 
 const SHIPPING_COST = 20;
 
 const Checkout: React.FC<Props> = () => {
   const methods = useForm<OrderParams>({
     defaultValues: {
-      deliveryMethod: "DELIVERY"
+      deliveryType: DeliveryType.Delivery
     }
   });
   const { register, watch } = methods;
-  const isDelivery = watch("deliveryMethod", "DELIVERY") === "DELIVERY";
+  const isDelivery =
+    watch("deliveryType", DeliveryType.Delivery) === DeliveryType.Delivery;
 
   // TODO: Add confirmation to leave site
 
+  const { items } = useCart();
   const { productTotal } = useCartProductsQuery();
 
   const grandTotal = productTotal + (isDelivery ? SHIPPING_COST : 0);
 
+  const [mutate] = useCreateOrderMutation();
+
+  const onSubmit = useCallback(
+    async (params: OrderParams) => {
+      const result = await mutate({
+        variables: { params: { ...params, lineItems: items } }
+      });
+      console.table(result);
+    },
+    [mutate, items]
+  );
+
   return (
     <CheckoutLayout title="Checkout">
       <div className={styles.grid}>
-        <FormWrapper {...methods} className={styles.form}>
+        <FormWrapper {...methods} className={styles.form} onSubmit={onSubmit}>
           <Link href="/" className={styles.logo}>
             <Logo />
           </Link>
           <InputGroup columns={2}>
             <InputField
-              {...register("firstName")}
+              {...register("firstName", { required: true })}
               label="Imię"
               required
               autoComplete="given-name"
@@ -66,14 +73,14 @@ const Checkout: React.FC<Props> = () => {
           </InputGroup>
           <InputGroup columns={2}>
             <InputField
-              {...register("email")}
+              {...register("email", { required: true })}
               label="E-mail"
               helperText="Na ten adres otrzymasz potwierdzenie zamówienia. Nie wysyłamy treści reklamowych."
               required
               autoComplete="email"
             />
             <InputField
-              {...register("phoneNo")}
+              {...register("phoneNo", { required: true })}
               label="Telefon kontaktowy"
               helperText="Pod ten numer będziemy dzwonić w razie pytań dotyczących dostawy."
               required
@@ -82,19 +89,19 @@ const Checkout: React.FC<Props> = () => {
           </InputGroup>
           <RadioGroup label="Sposób dostawy">
             <RadioButton
-              {...register("deliveryMethod")}
+              {...register("deliveryType")}
               label="Dowóz do domu"
-              value="DELIVERY"
+              value={DeliveryType.Delivery}
             />
             <RadioButton
-              {...register("deliveryMethod")}
+              {...register("deliveryType")}
               label="Odbiór osobisty w lokalu"
-              value="PICKUP"
+              value={DeliveryType.Pickup}
             />
           </RadioGroup>
           {isDelivery && (
             <InputField
-              {...register("shippingAddress")}
+              {...register("shippingAddress", { required: isDelivery })}
               label="Adres dostawy"
               required
               autoComplete="street-address"

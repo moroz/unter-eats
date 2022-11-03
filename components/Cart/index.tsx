@@ -16,7 +16,11 @@ const Cart: React.FC<Props> = ({ className }) => {
   return (
     <div className={className}>
       {items.map((item) => (
-        <CartItem product={products[item.id]} cartItem={item} key={item.id} />
+        <CartItem
+          product={products[item.productId]}
+          cartItem={item}
+          key={item.productId}
+        />
       ))}
     </div>
   );

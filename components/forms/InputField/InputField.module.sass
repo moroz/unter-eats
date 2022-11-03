@@ -14,13 +14,20 @@
   &:not(:last-child)
     margin-bottom: .75rem
 
-  &:has(.help)
-    margin-bottom: .5rem
-
 .help
-  margin-bottom: .5rem
+  color: var(--fg-color)
+
+.errorMessage
+  color: var(--danger)
+
+.help, .errorMessage
+  &:last-child
+    margin-bottom: .5rem
   font-weight: normal
   margin-top: 0
+  font-size: .875rem
+  display: block
+  margin-top: .25rem
 
 .label
   display: block
@@ -28,12 +35,6 @@
   font-size: 15px
   color: var(--stripe-label-color)
   margin-bottom: .25rem
-
-.help
-  color: var(--fg-color)
-  font-size: .875rem
-  display: block
-  margin-top: .25rem
 
 .textarea
   min-height: $input-height
@@ -45,7 +46,7 @@
 
 .input, .textarea
   background: var(--surface-1dp)
-  border: 1px solid var(--fg-color)
+  border: var(--base-border)
   border-radius: 0
   width: 100%
   transition: background 0.15s ease, border 0.15s ease, box-shadow 0.15s ease, color 0.15s ease
@@ -58,3 +59,4 @@
 
     +dark
       box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.03), 0px 3px 6px rgba(0, 0, 0, 0.02), 0 0 0 3px transparentize($primary-dark, .8), 0 1px 1px 0 transparentize(white, .92)
+      

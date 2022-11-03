@@ -12,7 +12,7 @@ export const calculateTotal = (
   products: Record<string, Product>
 ) => {
   return items.reduce((acc, item) => {
-    const product = products[item.id];
+    const product = products[item.productId];
     if (!product) return acc;
     return acc + Number(product.price) * item.quantity;
   }, 0);

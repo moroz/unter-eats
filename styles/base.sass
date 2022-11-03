@@ -14,6 +14,8 @@
   --stripe-label-color: black
   --input-placeholder: #{$input-placeholder}
   --emphasis-color: #{$fg-color}
+  --danger: #{$danger}
+  --base-border: 1px solid var(--fg-color)
 
   @each $level, $color in $surface-light
     --surface-#{$level}: #{$color}
@@ -24,6 +26,7 @@
 
   +dark
     --primary: #{$primary-dark}
+    --danger: #{$danger-dark}
     --primary-hover: #{lighten($primary-dark, 4%)}
     --fg-color: #{$fg-color-dark}
     --bg-color: #{$bg-color-dark}

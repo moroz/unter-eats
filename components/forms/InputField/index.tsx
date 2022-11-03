@@ -42,7 +42,7 @@ const InputField = React.forwardRef(
         {required ? (
           ""
         ) : (
-          <span className={styles.optionalText}>(optional)</span>
+          <span className={styles.optionalText}>(opcjonalnie)</span>
         )}
       </label>
     );
@@ -74,10 +74,10 @@ const InputField = React.forwardRef(
               {...rest}
               ref={ref}
             />
+            <ErrorMessage name={name} errors={errors} />
             {helperText ? (
               <span className={styles.help}>{helperText}</span>
             ) : null}
-            <ErrorMessage name={name} errors={errors} />
           </div>
         </div>
       </div>
