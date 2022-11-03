@@ -1,7 +1,6 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Elements } from "@stripe/react-stripe-js";
 import { Appearance, loadStripe } from "@stripe/stripe-js";
-import { useCreatePaymentIntentMutation } from "@api/mutations";
 
 interface Props {
   amount: number;
@@ -43,20 +42,11 @@ const buildTheme = (): Appearance => {
 
 interface Props {
   amount: number;
+  clientSecret: string;
   children: React.ReactNode;
 }
 
-const StripeProvider: React.FC<Props> = ({ amount, children }) => {
-  // const [mutate, { data }] = useCreatePaymentIntentMutation();
-
-  // useEffect(() => {
-  //   mutate({ variables: { amount } });
-  // }, [mutate]);
-
-  // if (!data) return null;
-  const clientSecret =
-    "pi_3LzUSTAoLiH0r9L91AJUDkZc_secret_nuRwlsM3hFFGQgR5EiQwboj2p";
-
+const StripeProvider: React.FC<Props> = ({ children, clientSecret }) => {
   return (
     <Elements
       stripe={stripePromise}

@@ -1,3 +1,5 @@
+import { PaymentIntent } from "./payments";
+
 export interface LineItemParams {
   productId: string;
   quantity: number;
@@ -25,6 +27,7 @@ export interface LineItem {
 }
 
 export interface Order {
+  __typename: "Order";
   email: string;
   phoneNo: string;
   firstName: string;
@@ -33,4 +36,5 @@ export interface Order {
   lineItems: LineItem[];
   lastName?: string | null;
   remarks?: string | null;
+  paymentIntent: PaymentIntent;
 }

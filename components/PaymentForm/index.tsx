@@ -8,12 +8,14 @@ import Button from "../Button";
 import Padlock from "./lock.svg";
 import styles from "./PaymentForm.module.sass";
 import { formatPrice } from "@lib/priceHelpers";
+import { PaymentMethodCreateParams } from "@stripe/stripe-js";
 
 interface Props {
   amount: number;
+  billingDetails: PaymentMethodCreateParams.BillingDetails;
 }
 
-const PaymentForm: React.FC<Props> = ({ amount }) => {
+const PaymentForm: React.FC<Props> = ({ amount, billingDetails }) => {
   const stripe = useStripe();
   const elements = useElements();
 
@@ -26,13 +28,16 @@ const PaymentForm: React.FC<Props> = ({ amount }) => {
       const result = await stripe.confirmPayment({
         elements,
         confirmParams: {
-          return_url: location.origin + "/"
+          return_url: location.origin + "/",
+          payment_method_data: {
+            billing_details: billingDetails
+          }
         }
       });
 
       console.log(result);
     },
-    [elements, stripe]
+    [elements, stripe, billingDetails]
   );
 
   return (
@@ -51,7 +56,7 @@ const PaymentForm: React.FC<Props> = ({ amount }) => {
       <PaymentElement options={{ fields: { billingDetails: "never" } }} />
       <Button type="submit" className={styles.button}>
         <Padlock />
-        Zapłać {formatPrice(21.36)}
+        Zapłać {formatPrice(amount / 100)}
       </Button>
     </form>
   );

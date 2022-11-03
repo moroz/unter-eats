@@ -1,5 +1,11 @@
-import React, { useCallback } from "react";
-import { Button, CheckoutLayout, Logo } from "@components";
+import React, { useCallback, useState } from "react";
+import {
+  Button,
+  CheckoutLayout,
+  Logo,
+  PaymentForm,
+  StripeProvider
+} from "@components";
 import { useCartProductsQuery } from "@api/queries";
 import { useForm } from "react-hook-form";
 import {
@@ -17,6 +23,7 @@ import Cart from "@components/Cart";
 import { DeliveryType, OrderParams } from "@interfaces";
 import { useCreateOrderMutation } from "@api/mutations";
 import useCart from "@hooks/useCart";
+import { PaymentMethodCreateParams } from "@stripe/stripe-js";
 
 interface Props {}
 
@@ -31,6 +38,24 @@ const Checkout: React.FC<Props> = () => {
   const { register, watch } = methods;
   const isDelivery =
     watch("deliveryType", DeliveryType.Delivery) === DeliveryType.Delivery;
+  const { firstName, lastName, email, phoneNo, shippingAddress } = watch();
+  const billingDetails: PaymentMethodCreateParams.BillingDetails = {
+    name: [firstName, lastName].filter(Boolean).join(" "),
+    email,
+    phone: phoneNo,
+    address: {
+      country: "PL",
+      postal_code: "",
+      state: "zachodniopomorskie",
+      city: "Koszalin",
+      line1: shippingAddress ?? "",
+      line2: ""
+    }
+  };
+
+  const [paymentIntentSecret, setPaymentIntentSecret] = useState<string | null>(
+    null
+  );
 
   // TODO: Add confirmation to leave site
 
@@ -39,17 +64,36 @@ const Checkout: React.FC<Props> = () => {
 
   const grandTotal = productTotal + (isDelivery ? SHIPPING_COST : 0);
 
-  const [mutate] = useCreateOrderMutation();
+  const [mutate, { loading }] = useCreateOrderMutation();
 
   const onSubmit = useCallback(
     async (params: OrderParams) => {
       const result = await mutate({
         variables: { params: { ...params, lineItems: items } }
       });
-      console.table(result);
+      if (result.data?.result.success) {
+        const clientSecret = result.data.result.data.paymentIntent.clientSecret;
+        if (clientSecret) {
+          setPaymentIntentSecret(clientSecret);
+        }
+      }
     },
     [mutate, items]
   );
+
+  if (paymentIntentSecret) {
+    const amount = Math.floor(grandTotal * 100);
+
+    return (
+      <CheckoutLayout>
+        <div className="container">
+          <StripeProvider amount={amount} clientSecret={paymentIntentSecret}>
+            <PaymentForm amount={amount} billingDetails={billingDetails} />
+          </StripeProvider>
+        </div>
+      </CheckoutLayout>
+    );
+  }
 
   return (
     <CheckoutLayout title="Checkout">
@@ -108,7 +152,9 @@ const Checkout: React.FC<Props> = () => {
             />
           )}
           <Textarea label="Uwagi do zamówienia" {...register("remarks")} />
-          <Button type="submit">Zamawiam za {formatPrice(grandTotal)}</Button>
+          <Button type="submit" disabled={loading}>
+            Zamawiam za {formatPrice(grandTotal)}
+          </Button>
         </FormWrapper>
         <aside className={styles.cartSection}>
           <Cart />
