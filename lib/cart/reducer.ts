@@ -2,7 +2,10 @@ import { Reducer } from "react";
 import { CartAction, CartActionType } from "./CartAction";
 import { CartState } from "./CartState";
 
+export const CART_REVISION = 1;
+
 export const initialState = {
+  revision: CART_REVISION,
   items: []
 };
 

@@ -3,6 +3,8 @@ import styles from "./PaymentLogos.module.sass";
 import BlikLogo from "./blik.svg";
 import VisaLogo from "./visa.svg";
 import McLogo from "./mc.svg";
+import GooglePayLogo from "./gpay.svg";
+import ApplePayLogo from "./apple.svg";
 import clsx from "clsx";
 
 interface Props {
@@ -17,6 +19,12 @@ const PaymentLogos: React.FC<Props> = ({ className }) => {
         <VisaLogo />
       </div>
       <McLogo />
+      <div className={styles.gpay}>
+        <GooglePayLogo />
+      </div>
+      <div className={styles.apple}>
+        <ApplePayLogo />
+      </div>
     </div>
   );
 };

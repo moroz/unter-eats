@@ -2,14 +2,13 @@ import Link from "next/link";
 import React, { useCallback, useEffect, useState } from "react";
 import styles from "./Header.module.sass";
 import Logo from "../../Logo";
-import clsx from "clsx";
-import useHeaderScroll from "@/hooks/useHeaderScroll";
-import CartButton from "@/components/CartButton";
+import { CartButton } from "@components";
 import { Spin as Hamburger } from "hamburger-react";
 import PhoneIcon from "../../../icons/phone.svg";
 import { Category } from "@interfaces";
 import CategoryNavigation from "@components/CategoryNavigation";
 import { useRouter } from "next/router";
+import useCart from "@hooks/useCart";
 
 interface Props {
   categories: Category[];
@@ -18,10 +17,12 @@ interface Props {
 const Header: React.FC<Props> = ({ categories }) => {
   const [open, setOpen] = useState(false);
   const { asPath } = useRouter();
+  const { toggleCart, open: cartOpen } = useCart();
 
   const onToggle = useCallback(() => {
+    if (cartOpen) toggleCart();
     setOpen((t) => !t);
-  }, [setOpen]);
+  }, [setOpen, cartOpen, toggleCart]);
 
   useEffect(() => {
     setOpen(false);

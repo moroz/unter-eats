@@ -1,11 +1,10 @@
 import { PAGE_TITLE } from "@/config";
-import useCart from "@/hooks/useCart";
+import useCart from "@hooks/useCart";
 import { Category } from "@interfaces";
 import clsx from "clsx";
 import Head from "next/head";
-import React, { useEffect } from "react";
+import React from "react";
 import CartModal from "../CartModal";
-import CategoryNavigation from "../CategoryNavigation";
 import Footer from "./Footer";
 import Header from "./Header";
 import styles from "./Layout.module.sass";

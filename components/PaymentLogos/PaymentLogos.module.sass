@@ -1,7 +1,13 @@
+@import ../../styles/_variables.sass
+
 $logo-base-height: 1.5rem
 
 .root
   --base-height: #{$logo-base-height}
+
+  +mobile
+    --base-height: 1.25rem
+
   display: flex
   justify-content: center
 
@@ -14,6 +20,16 @@ $logo-base-height: 1.5rem
   overflow: hidden
   display: flex
   align-items: center
+  margin: 0 calc(var(--base-height) * -.25)
 
   svg
     height: calc(var(--base-height) * 2)
+
+.gpay, .apple
+  margin-left: calc(var(--base-height) * .5)
+
+.apple
+  display: flex
+  height: var(--base-height)
+  width: auto
+  overflow: hidden

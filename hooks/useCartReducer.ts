@@ -1,6 +1,6 @@
-import { CartActionType } from "@/lib/cart/CartAction";
-import { CartState } from "@/lib/cart/CartState";
-import CartReducer, { initialState } from "@/lib/cart/reducer";
+import { CartActionType } from "@lib/cart/CartAction";
+import { CartState } from "@lib/cart/CartState";
+import CartReducer, { CART_REVISION, initialState } from "@/lib/cart/reducer";
 import { useReducer, useCallback, useEffect, useState } from "react";
 
 const CART_KEY = "__ARTESANO_CART";
@@ -24,6 +24,7 @@ export default function useCartReducer() {
 
       const persistedStateJSON = localStorage.getItem(CART_KEY);
       const parsed = persistedStateJSON && JSON.parse(persistedStateJSON);
+      if (parsed?.revision !== CART_REVISION) return defaultValue;
       return parsed ?? defaultValue;
     }
   );

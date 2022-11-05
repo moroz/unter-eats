@@ -1,3 +1,5 @@
+@import ../../styles/_variables.sass
+
 .card
   display: flex
   flex-direction: column
@@ -6,7 +8,12 @@
     margin: .5rem 0 1rem
 
 .name
-  font-size: 1.2rem
+  +not-mobile
+    font-size: 1.2rem
   font-weight: bold
   text-align: center
   margin-top: .5rem
+
+.description
+  font-size: .9em
+  margin: .25rem 0 .75rem

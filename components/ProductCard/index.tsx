@@ -23,7 +23,7 @@ const ProductCard: React.FC<Props> = ({ product, category }) => {
       <Link href={url} className={styles.name}>
         {product.namePl}
       </Link>
-      <p>{product.descriptionPl}</p>
+      <div className={styles.description}>{product.descriptionPl}</div>
       <AddToCartButton product={product} />
     </article>
   );
