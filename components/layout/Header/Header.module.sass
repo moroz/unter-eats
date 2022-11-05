@@ -11,6 +11,7 @@
   top: 0
   left: 0
   right: 0
+  z-index: 10
 
   +light
     box-shadow: 0 2px 3px rgba(0, 0, 0, .12)
@@ -40,6 +41,10 @@
     bottom: rem-calc(9px)
     width: 1px
     background: var(--fg-color)
+
+.contact
+  svg
+    transform: scaleX(-1)
 
 .hamburger::after
   right: 0
