@@ -25,6 +25,7 @@ $primary: darken($blue, 10.5%)
 $primary-dark: lighten($blue, 6%)
 $link-color: var(--primary)
 $header-height: rem-calc(70)
+$header-height-mobile: rem-calc(60)
 $content-width: rem-calc(1100)
 $logo-height: $header-height * .7
 
@@ -56,4 +57,8 @@ $cart-modal-width: rem-calc(500px)
 
 =dark
   @media (prefers-color-scheme: dark)
+    @content
+
+=light
+  @media (prefers-color-scheme: light)
     @content

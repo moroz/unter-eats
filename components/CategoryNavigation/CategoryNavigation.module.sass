@@ -1,19 +1,25 @@
-.root
-  display: flex
-  justify-content: center
-  gap: .5rem
-  position: -webkit-sticky
-  position: sticky
-  top: var(--header-height)
-  background: var(--bg-color)
-  transition: .2s ease-in-out
-  z-index: 10
+@import ../../styles/_variables.sass
 
-  &.opaque
-    background: var(--surface-1dp)
-    a
-      &:hover
-        background: var(--surface-2dp)
+.root
+  display: block
+
++not-mobile
+  .root
+    display: flex
+    justify-content: center
+    gap: .5rem
+    position: -webkit-sticky
+    position: sticky
+    top: var(--header-height)
+    background: var(--bg-color)
+    transition: .2s ease-in-out
+    z-index: 10
+
+    &.opaque
+      background: var(--surface-1dp)
+      a
+        &:hover
+          background: var(--surface-2dp)
 
 a.link
   color: var(--emphasis-color)

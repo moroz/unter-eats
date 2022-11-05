@@ -1,54 +1,111 @@
 @import ../../../styles/_variables.sass
 
 .header
+  display: grid
+  grid-template-columns: var(--header-height) 1fr var(--header-height) var(--header-height)
+  border-bottom: 1px solid var(--fg-color)
   height: var(--header-height)
-  display: flex
   align-items: center
-  padding: 0 1rem
-  position: fixed
-  top: 0
-  left: 0
-  right: 0
-  background: var(--bg-color)
-  transition: .2s ease-in-out
-  z-index: 10
+  background: var(--surface-1dp)
+  width: 100%
 
-  p, h1
-    margin: 0
-  
-  a, button
-    color: inherit
-    &:hover
-      background: var(--surface-1dp)
-
-  &.opaque
-    background: var(--surface-1dp)
-    a, button
-      &:hover
-        background: var(--surface-2dp)
-
-.logo
-  height: var(--header-height)
-  padding: 0 1rem
-  display: flex
-  align-items: center
-
-  &, &:visited
-    color: var(--emphasis-color)
-
-.navbar
-  margin-left: auto
-  display: flex
+  +light
+    box-shadow: 0 2px 3px rgba(0, 0, 0, .12)
 
   a
-    display: inline-block
-
-  a, button
-    cursor: pointer
     color: var(--emphasis-color)
-    font-weight: 600
-    height: var(--header-height)
-    line-height: var(--header-height)
-    text-transform: uppercase
-    padding: 0 1rem
-    transition: .2s ease-in-out
+
+  svg
+    height: 1.75rem
+    fill: currentColor
+
+.hamburger,
+.contact,
+.cart
+  position: relative
+  width: var(--header-height)
+  height: var(--header-height)
+  display: flex
+  align-items: center
+  justify-content: center
+  color: var(--emphasis-color)
+
+  &:after
+    content: ''
+    position: absolute
+    top: rem-calc(9px)
+    bottom: rem-calc(9px)
+    width: 1px
+    background: var(--fg-color)
+
+.hamburger::after
+  right: 0
+
+.contact, .cart
+  &::after
+    left: 0
+
+.hamburger
+  +not-mobile
+    display: none
+
+a.logo
+  color: black
+  color: var(--emphasis-color)
+  margin-left: 10px
+  svg
+    height: rem-calc(36px)
+    fill: currentColor
+
+// .header
+//   height: var(--header-height)
+//   display: flex
+//   align-items: center
+//   padding: 0 1rem
+//   position: fixed
+//   top: 0
+//   left: 0
+//   right: 0
+//   background: var(--bg-color)
+//   transition: .2s ease-in-out
+//   z-index: 10
+
+//   p, h1
+//     margin: 0
+  
+//   a, button
+//     color: inherit
+//     &:hover
+//       background: var(--surface-1dp)
+
+//   &.opaque
+//     background: var(--surface-1dp)
+//     a, button
+//       &:hover
+//         background: var(--surface-2dp)
+
+// .logo
+//   height: var(--header-height)
+//   padding: 0 1rem
+//   display: flex
+//   align-items: center
+
+//   &, &:visited
+//     color: var(--emphasis-color)
+
+// .navbar
+//   margin-left: auto
+//   display: flex
+
+//   a
+//     display: inline-block
+
+//   a, button
+//     cursor: pointer
+//     color: var(--emphasis-color)
+//     font-weight: 600
+//     height: var(--header-height)
+//     line-height: var(--header-height)
+//     text-transform: uppercase
+//     padding: 0 1rem
+//     transition: .2s ease-in-out

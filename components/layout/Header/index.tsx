@@ -5,6 +5,8 @@ import Logo from "../../Logo";
 import clsx from "clsx";
 import useHeaderScroll from "@/hooks/useHeaderScroll";
 import CartButton from "@/components/CartButton";
+import { Spin as Hamburger } from "hamburger-react";
+import PhoneIcon from "../../../icons/phone.svg";
 
 interface Props {}
 
@@ -13,15 +15,16 @@ const Header: React.FC<Props> = () => {
 
   return (
     <header className={clsx(styles.header, opaque && styles.opaque)}>
+      <div className={styles.hamburger}>
+        <Hamburger direction="right" />
+      </div>
       <Link href="/" className={styles.logo} title="Artesano Sports Bar & Food">
         <Logo />
       </Link>
-      <nav className={styles.navbar}>
-        <Link href="/">Strona główna</Link>
-        <Link href="/menu">Menu</Link>
-        <Link href="/kontakt">Kontakt</Link>
-        <CartButton />
-      </nav>
+      <Link href="/contact" className={styles.contact}>
+        <PhoneIcon />
+      </Link>
+      <CartButton className={styles.cart} />
     </header>
   );
 };
