@@ -1,26 +1,31 @@
 import { Category } from "@interfaces";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React from "react";
+import React, { useCallback } from "react";
 import styles from "./CategoryNavigation.module.sass";
 import clsx from "clsx";
-import useHeaderScroll from "@/hooks/useHeaderScroll";
 
 interface Props {
   categories: Category[];
+  open?: boolean;
+  setOpen: (value: boolean) => void;
 }
 
-const CategoryNavigation: React.FC<Props> = ({ categories }) => {
+const CategoryNavigation: React.FC<Props> = ({ categories, open, setOpen }) => {
   const { asPath, query } = useRouter();
-  const opaque = useHeaderScroll();
+
+  const onClick = useCallback(() => {
+    setOpen(false);
+  }, [setOpen]);
 
   return (
-    <nav className={clsx(styles.root, opaque && styles.opaque)}>
+    <nav className={clsx(styles.root, open && styles.open)}>
       {categories.map((cat, i) => {
         const url = i ? `/menu/${cat.slug}` : "/menu";
         const isActive = asPath === url || cat.slug === query.ref;
         return (
           <Link
+            onClick={isActive ? onClick : undefined}
             key={cat.id}
             href={url}
             className={clsx(styles.link, isActive && styles.active)}

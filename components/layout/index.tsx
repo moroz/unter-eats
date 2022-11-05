@@ -3,7 +3,7 @@ import useCart from "@/hooks/useCart";
 import { Category } from "@interfaces";
 import clsx from "clsx";
 import Head from "next/head";
-import React from "react";
+import React, { useEffect } from "react";
 import CartModal from "../CartModal";
 import CategoryNavigation from "../CategoryNavigation";
 import Footer from "./Footer";
@@ -18,6 +18,7 @@ interface Props {
 
 const Layout: React.FC<Props> = ({ children, title, categories }) => {
   const { toggleCart, open } = useCart();
+
   return (
     <div className={styles.layout}>
       <Head>

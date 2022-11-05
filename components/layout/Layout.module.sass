@@ -13,17 +13,18 @@
   text-align: center
   margin: 1rem 0 2rem
 
-.overlay
-  position: fixed
-  top: 0
-  left: 0
-  right: 0
-  bottom: 0
-  background: transparentize(black, .2)
-  z-index: 10
-  transition: .2s ease-in-out
++not-mobile
+  .overlay
+    position: fixed
+    top: 0
+    left: 0
+    right: 0
+    bottom: 0
+    background: transparentize(black, .2)
+    z-index: 10
+    transition: .2s ease-in-out
 
-  &:not(.open)
-    background: transparent
-    pointer-events: none
-      
+    &:not(.open)
+      background: transparent
+      pointer-events: none
+        
