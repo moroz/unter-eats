@@ -13,7 +13,7 @@ import styles from "./Layout.module.sass";
 interface Props {
   children?: React.ReactNode;
   title?: string;
-  categories?: Category[];
+  categories: Category[];
 }
 
 const Layout: React.FC<Props> = ({ children, title, categories }) => {
@@ -23,8 +23,7 @@ const Layout: React.FC<Props> = ({ children, title, categories }) => {
       <Head>
         <title>{title ? `${title} | ${PAGE_TITLE}` : PAGE_TITLE}</title>
       </Head>
-      <Header />
-      {categories ? <CategoryNavigation categories={categories} /> : null}
+      <Header categories={categories} />
       <main>
         <h2 className={styles.pageTitle}>{title}</h2>
         {children}

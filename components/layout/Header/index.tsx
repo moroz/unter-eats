@@ -7,10 +7,14 @@ import useHeaderScroll from "@/hooks/useHeaderScroll";
 import CartButton from "@/components/CartButton";
 import { Spin as Hamburger } from "hamburger-react";
 import PhoneIcon from "../../../icons/phone.svg";
+import { Category } from "@interfaces";
+import CategoryNavigation from "@components/CategoryNavigation";
 
-interface Props {}
+interface Props {
+  categories: Category[];
+}
 
-const Header: React.FC<Props> = () => {
+const Header: React.FC<Props> = ({ categories }) => {
   const opaque = useHeaderScroll();
 
   return (
@@ -25,6 +29,7 @@ const Header: React.FC<Props> = () => {
         <PhoneIcon />
       </Link>
       <CartButton className={styles.cart} />
+      <CategoryNavigation categories={categories} />
     </header>
   );
 };
