@@ -21,7 +21,7 @@ const Header: React.FC<Props> = () => {
       <Link href="/" className={styles.logo} title="Artesano Sports Bar & Food">
         <Logo />
       </Link>
-      <Link href="/contact" className={styles.contact}>
+      <Link href="/kontakt" className={styles.contact}>
         <PhoneIcon />
       </Link>
       <CartButton className={styles.cart} />
