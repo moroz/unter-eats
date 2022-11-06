@@ -12,9 +12,11 @@
   +mobile
     grid-template-columns: var(--header-height) 1fr repeat(2, var(--header-height))
     position: fixed
+    z-index: 12
 
   +light
-    box-shadow: 0 2px 3px rgba(0, 0, 0, .12)
+    border-bottom: 1px solid #ccc
+    box-shadow: 0 2px 3px rgba(0, 0, 0, .2)
 
   +not-mobile
     padding: 0 2rem
@@ -36,6 +38,10 @@
     fill: currentColor
 
 +without-inline-categories
+  .inlineCategories
+    display: none
+
++mobile
   .inlineCategories
     display: none
 
