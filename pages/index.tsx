@@ -1,7 +1,7 @@
 import React from "react";
 import Layout from "@layout";
 import { Category } from "@interfaces";
-export { getServerSideProps } from "./menu/[[...slug]]";
+export { getCategoriesCallback as getServerSideProps } from "@api/queries";
 
 interface Props {
   categories: Category[];

@@ -1,6 +1,7 @@
 import { query } from "@api/query";
 import { gql } from "@apollo/client";
 import { Category } from "@interfaces";
+import { GetServerSideProps } from "next";
 
 export const GET_CATEGORY = gql`
   query GetCategory($id: ID!) {
@@ -48,3 +49,14 @@ export interface ListCategoriesQueryResult {
 
 export const listCategoriesQuery =
   query<ListCategoriesQueryResult>(LIST_CATEGORIES);
+
+export const getCategoriesCallback: GetServerSideProps = async () => {
+  const {
+    data: { categories }
+  } = await listCategoriesQuery();
+  return {
+    props: {
+      categories
+    }
+  };
+};

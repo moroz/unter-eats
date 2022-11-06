@@ -2,34 +2,50 @@
 
 .header
   display: grid
-  grid-template-columns: var(--header-height) 1fr repeat(2, var(--header-height))
-  height: var(--header-height)
   align-items: center
   background: var(--surface-1dp)
-  position: fixed
+  z-index: 10
   top: 0
   left: 0
   right: 0
-  z-index: 10
-  overflow: hidden
 
   +mobile
     border-bottom: 1px solid var(--fg-color)
+    grid-template-columns: var(--header-height) 1fr repeat(2, var(--header-height))
+    position: fixed
 
   +light
     box-shadow: 0 2px 3px rgba(0, 0, 0, .12)
 
   +not-mobile
-    grid-template-columns: 1fr repeat(2, var(--header-height))
     padding: 0 2rem
     box-shadow: none
+
+  +with-inline-categories
+    grid-template-columns: auto 1fr repeat(2, var(--header-height))
+    position: fixed
+    overflow: hidden
+
+  +without-inline-categories
+    grid-template-columns: 1fr repeat(2, var(--header-height))
 
   a
     color: var(--emphasis-color)
 
   svg
-    height: 1.75rem
+    height: 1.5rem
     fill: currentColor
+
++without-inline-categories
+  .inlineCategories
+    display: none
+
++with-inline-categories
+  .inlineCategories
+    display: flex
+
+  .standaloneCategories
+    display: none
 
 .hamburger,
 .contact,
@@ -51,7 +67,20 @@
       width: 1px
       background: var(--fg-color)
 
-.contact
+.contact, .cart
+  +hoverable(var(--surface-2dp))
+  +mobile
+    .label
+      display: none
+  
+  +not-mobile
+    flex-direction: column
+    justify-content: space-between
+    padding: 1.25rem 0 1rem
+
+    .label
+      justify-self: flex-end
+
   svg
     transform: scaleX(-1)
 

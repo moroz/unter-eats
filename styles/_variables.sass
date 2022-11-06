@@ -26,14 +26,14 @@ $primary-dark: lighten($blue, 6%)
 $link-color: var(--primary)
 $header-height: rem-calc(90)
 $header-height-mobile: rem-calc(60)
-$content-width: rem-calc(1100)
+$content-width: rem-calc(900)
 $logo-height: $header-height * .7
 
 $surface-light: ("1dp": darken($bg-color, 3%), "2dp": darken($bg-color, 6%))
 
 $surface-levels: ("1dp": #1d1d1d, "2dp": #212121, "4dp": #272727)
 
-$font-family-custom: Roboto
+$font-family-custom: system-ui
 $font-family-system: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif
 $font-family-sans: $font-family-custom, $font-family-system
 
@@ -45,6 +45,8 @@ $navbar-item-hover-bg: darken(white, 6%)
 
 $breakpoint: $content-width + 3rem
 
+$inline-categories-breakpoint: rem-calc(1250px)
+
 $cart-modal-width: rem-calc(500px)
 
 =mobile
@@ -53,6 +55,14 @@ $cart-modal-width: rem-calc(500px)
 
 =not-mobile
   @media screen and (min-width: #{$breakpoint})
+    @content
+
+=without-inline-categories
+  @media screen and (min-width: #{$breakpoint}) and (max-width: #{$inline-categories-breakpoint - rem-calc(1px)})
+    @content
+
+=with-inline-categories
+  @media screen and (min-width: #{$inline-categories-breakpoint})
     @content
 
 =dark

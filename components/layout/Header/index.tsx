@@ -34,23 +34,37 @@ const Header: React.FC<Props> = ({ categories }) => {
   }, [asPath, closeCart]);
 
   return (
-    <header className={styles.header}>
-      <div className={styles.hamburger}>
-        <Hamburger direction="right" toggled={open} toggle={onToggle} />
-      </div>
-      <Link href="/" className={styles.logo} title="Artesano Sports Bar & Food">
-        <Logo />
-      </Link>
-      <Link href="/kontakt" className={styles.contact}>
-        <PhoneIcon />
-      </Link>
-      <CartButton className={styles.cart} closeMenu={closeMenu} />
+    <>
+      <header className={styles.header}>
+        <div className={styles.hamburger}>
+          <Hamburger direction="right" toggled={open} toggle={onToggle} />
+        </div>
+        <Link
+          href="/"
+          className={styles.logo}
+          title="Artesano Sports Bar & Food"
+        >
+          <Logo />
+        </Link>
+        <CategoryNavigation
+          className={styles.inlineCategories}
+          categories={categories}
+          open={open}
+          setOpen={setOpen}
+        />
+        <Link href="/kontakt" className={styles.contact}>
+          <PhoneIcon />
+          <span className={styles.label}>Kontakt</span>
+        </Link>
+        <CartButton className={styles.cart} closeMenu={closeMenu} />
+      </header>
       <CategoryNavigation
+        className={styles.standaloneCategories}
         categories={categories}
         open={open}
         setOpen={setOpen}
       />
-    </header>
+    </>
   );
 };
 

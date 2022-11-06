@@ -1,7 +1,7 @@
 import React from "react";
 import Layout from "@components/layout";
 import { Category } from "@interfaces";
-export { getServerSideProps } from "../menu/[[...slug]]";
+export { getCategoriesCallback as getServerSideProps } from "@api/queries";
 
 // TODO: Only load categories on pages where it's necessary
 interface Props {
