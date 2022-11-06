@@ -4,7 +4,6 @@
   display: inline-flex
   align-items: center
   font-size: 1em
-  font-weight: bold
   border: 0
   background: 0
   color: var(--emphasis-color)
@@ -13,16 +12,24 @@
   height: var(--header-height)
   margin: 0
   gap: .5rem
-  position: relative
+  +hoverable(var(--surface-2dp))
 
   svg
     height: 1.5rem
     width: auto
     fill: currentColor
 
+  +not-mobile
+    display: flex
+    flex-direction: column
+    gap: .5rem
+
 .label
   +mobile
     display: none
+
+.countGroup
+  position: relative
 
 .count
   position: absolute

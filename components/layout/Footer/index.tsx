@@ -12,7 +12,7 @@ const Footer: React.FC<Props> = () => {
         <a href="https://moroz.dev" target="_blank" rel="noopener noreferrer">
           Karol Moroz
         </a>
-        . All rights reserved.
+        .
       </p>
       <PaymentLogos />
     </footer>

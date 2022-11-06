@@ -26,13 +26,13 @@ const CartButton: React.FC<Props> = ({ className, closeMenu }) => {
       )}
       onClick={onToggle}
     >
-      <Basket />
-      {items.length ? (
-        <span className={styles.count}>{items.length}</span>
-      ) : null}
-      <span className={styles.label}>
-        Koszyk{items.length ? ` (${items.length})` : null}
-      </span>
+      <div className={styles.countGroup}>
+        <Basket />
+        {items.length ? (
+          <span className={styles.count}>{items.length}</span>
+        ) : null}
+      </div>
+      <span className={styles.label}>Koszyk</span>
     </button>
   );
 };
