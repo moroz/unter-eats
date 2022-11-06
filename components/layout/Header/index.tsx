@@ -17,16 +17,21 @@ interface Props {
 const Header: React.FC<Props> = ({ categories }) => {
   const [open, setOpen] = useState(false);
   const { asPath } = useRouter();
-  const { toggleCart, open: cartOpen } = useCart();
+  const { closeCart } = useCart();
+
+  const closeMenu = useCallback(() => {
+    setOpen(false);
+  }, [setOpen]);
 
   const onToggle = useCallback(() => {
-    if (cartOpen) toggleCart();
+    closeCart();
     setOpen((t) => !t);
-  }, [setOpen, cartOpen, toggleCart]);
+  }, [setOpen, closeCart]);
 
   useEffect(() => {
     setOpen(false);
-  }, [asPath]);
+    closeCart();
+  }, [asPath, closeCart]);
 
   return (
     <header className={styles.header}>
@@ -39,7 +44,7 @@ const Header: React.FC<Props> = ({ categories }) => {
       <Link href="/kontakt" className={styles.contact}>
         <PhoneIcon />
       </Link>
-      <CartButton className={styles.cart} />
+      <CartButton className={styles.cart} closeMenu={closeMenu} />
       <CategoryNavigation
         categories={categories}
         open={open}

@@ -16,6 +16,10 @@ export default function useCartReducer() {
     setCartOpen((t) => !t);
   }, [setCartOpen]);
 
+  const closeCart = useCallback(() => {
+    setCartOpen(false);
+  }, [setCartOpen]);
+
   const [state, dispatch] = useReducer(
     CartReducer,
     initialState,
@@ -71,6 +75,7 @@ export default function useCartReducer() {
     changeItemQuantity,
     open: cartOpen,
     toggleCart,
+    closeCart,
     ids: [...allIds]
   };
 }

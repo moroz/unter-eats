@@ -13,6 +13,7 @@
   height: var(--header-height)
   margin: 0
   gap: .5rem
+  position: relative
 
   svg
     height: 1.5rem
@@ -22,3 +23,17 @@
 .label
   +mobile
     display: none
+
+.count
+  position: absolute
+  top: 50%
+  left: 50%
+  background: var(--primary)
+  height: 1rem
+  font-size: .75rem
+  display: flex
+  align-items: center
+  justify-content: center
+  width: 1rem
+  border-radius: 50%
+  color: var(--bg-color)
