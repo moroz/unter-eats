@@ -1,11 +1,16 @@
 import React from "react";
 import Layout from "@components/layout";
+import { Category } from "@interfaces";
+export { getServerSideProps } from "../menu/[[...slug]]";
 
-interface Props {}
+// TODO: Only load categories on pages where it's necessary
+interface Props {
+  categories: Category[];
+}
 
-const ContactPage: React.FC<Props> = () => {
+const ContactPage: React.FC<Props> = ({ categories }) => {
   return (
-    <Layout title="Kontakt">
+    <Layout title="Kontakt" categories={categories}>
       <p>Hello world!</p>
     </Layout>
   );
