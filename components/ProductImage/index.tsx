@@ -1,7 +1,6 @@
 import { Product } from "@interfaces";
 import React from "react";
 import styles from "./ProductImage.module.sass";
-import Image from "next/image";
 
 interface Props {
   product?: Product;
@@ -9,7 +8,7 @@ interface Props {
   showPrice?: boolean;
 }
 
-const uuid = "c84ac4ff-bec1-4389-9dbb-5b971a154e54";
+const uuid = "9344cd49-7d40-4cc0-b973-fa15132ddb75";
 const asset_host = "https://d19gk9i6dczo7b.cloudfront.net";
 
 const ProductImage: React.FC<Props> = ({
