@@ -5,6 +5,7 @@ export interface Product {
   namePl: string;
   descriptionPl: string | null;
   descriptionEn: string | null;
+  imageUuid: string | null;
   insertedAt: string;
   updatedAt: string;
   price: string;

@@ -8,14 +8,15 @@ interface Props {
   showPrice?: boolean;
 }
 
-const uuid = "9344cd49-7d40-4cc0-b973-fa15132ddb75";
-const asset_host = "https://d19gk9i6dczo7b.cloudfront.net";
+const PLACEHOLDER_UUID = "9344cd49-7d40-4cc0-b973-fa15132ddb75";
+const asset_host = process.env.NEXT_PUBLIC_ASSET_HOST;
 
 const ProductImage: React.FC<Props> = ({
   product,
   aspectRatio,
   showPrice = true
 }) => {
+  const uuid = product?.imageUuid ?? PLACEHOLDER_UUID;
   const style = aspectRatio
     ? ({ "--aspect-ratio": aspectRatio } as React.CSSProperties)
     : undefined;

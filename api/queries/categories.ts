@@ -14,6 +14,7 @@ export const GET_CATEGORY = gql`
         namePl
         price
         descriptionPl
+        imageUuid
         slug
       }
     }

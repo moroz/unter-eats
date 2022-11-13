@@ -10,6 +10,7 @@ export const GET_PRODUCTS = gql`
       id
       namePl
       price
+      imageUuid
     }
   }
 `;
