@@ -8,7 +8,7 @@ interface Props {
   showPrice?: boolean;
 }
 
-const PLACEHOLDER_UUID = "9344cd49-7d40-4cc0-b973-fa15132ddb75";
+const PLACEHOLDER_UUID = "56051286-ebd9-4d34-b5e8-b8dec3a853d2";
 const asset_host = process.env.NEXT_PUBLIC_ASSET_HOST;
 
 const ProductImage: React.FC<Props> = ({
