@@ -33,9 +33,12 @@ $surface-light: ("1dp": darken($bg-color, 3%), "2dp": darken($bg-color, 6%))
 
 $surface-levels: ("1dp": #1d1d1d, "2dp": #212121, "4dp": #272727)
 
-$font-family-custom: system-ui
-$font-family-system: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif
-$font-family-sans: $font-family-custom, $font-family-system
+// $font-family-custom: system-ui
+
+$linux-system-fonts: "Liberation Sans", "Nimbus Sans L", "FreeSans"
+$font-family-system: -apple-system, BlinkMacSystemFont, Roboto, $linux-system-fonts, Segoe UI, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif
+// $font-family-sans: $font-family-custom, $font-family-system
+$font-family-sans: $font-family-system
 
 $header-side-padding: 10rem
 
