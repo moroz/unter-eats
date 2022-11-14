@@ -60,26 +60,20 @@ const InputField = React.forwardRef(
           className
         )}
       >
-        <div className="field-label is-normal">{labelTag}</div>
-        <div className="field-body">
-          <div className="field">
-            <input
-              className={clsx(
-                styles.input,
-                errors[name] && "is-danger",
-                monospace && "is-family-monospace"
-              )}
-              id={id}
-              name={name}
-              {...rest}
-              ref={ref}
-            />
-            <ErrorMessage name={name} errors={errors} />
-            {helperText ? (
-              <span className={styles.help}>{helperText}</span>
-            ) : null}
-          </div>
-        </div>
+        {labelTag}
+        <input
+          className={clsx(
+            styles.input,
+            errors[name] && "is-danger",
+            monospace && "is-family-monospace"
+          )}
+          id={id}
+          name={name}
+          {...rest}
+          ref={ref}
+        />
+        <ErrorMessage name={name} errors={errors} />
+        {helperText ? <span className={styles.help}>{helperText}</span> : null}
       </div>
     );
   }

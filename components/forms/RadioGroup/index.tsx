@@ -10,7 +10,7 @@ const RadioGroup: React.FC<Props> = ({ label, children, ...rest }) => {
   return (
     <fieldset {...rest} className={clsx("field", styles.root)}>
       {label ? <legend>{label}</legend> : null}
-      {children}
+      <div className={styles.fields}>{children}</div>
     </fieldset>
   );
 };
