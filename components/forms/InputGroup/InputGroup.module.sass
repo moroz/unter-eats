@@ -1,5 +1,14 @@
+@import ../../../styles/_variables.sass
+
 .group
-  display: grid
-  gap: var(--group-gap, .75rem)
-  grid-template-columns: repeat(var(--column-count), 1fr)
-  
+  +not-mobile
+    display: grid
+    gap: var(--group-gap, .75rem)
+    grid-template-columns: repeat(var(--column-count), 1fr)
+    
+  input
+    margin-bottom: 0
+
+  +mobile
+    > *
+      margin-bottom: .75rem
