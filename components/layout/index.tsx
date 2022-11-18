@@ -4,7 +4,7 @@ import { Category } from "@interfaces";
 import clsx from "clsx";
 import Head from "next/head";
 import React from "react";
-import CartModal from "../CartModal";
+import { CartModal } from "@components/cart";
 import Footer from "./Footer";
 import Header from "./Header";
 import styles from "./Layout.module.sass";

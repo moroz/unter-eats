@@ -1,5 +1,4 @@
 import { Category, Product } from "@interfaces";
-import Link from "next/link";
 import React from "react";
 import AddToCartButton from "../AddToCartButton";
 import ProductImage from "../ProductImage";
@@ -10,19 +9,11 @@ interface Props {
   category: Category;
 }
 
-const ProductCard: React.FC<Props> = ({ product, category }) => {
-  const referer = category
-    ? new URLSearchParams({ ref: category?.slug }).toString()
-    : "";
-  const url = `/menu/product/${product.slug}?${referer}`;
+const ProductCard: React.FC<Props> = ({ product }) => {
   return (
     <article className={styles.card}>
-      <Link href={url}>
-        <ProductImage product={product} />
-      </Link>
-      <Link href={url} className={styles.name}>
-        {product.namePl}
-      </Link>
+      <ProductImage product={product} />
+      <span className={styles.name}>{product.namePl}</span>
       <div className={styles.description}>{product.descriptionPl}</div>
       <AddToCartButton product={product} />
     </article>

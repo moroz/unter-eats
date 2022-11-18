@@ -1,5 +1,5 @@
 import { useCartProductsQuery } from "@api/queries";
-import CartItem from "@components/CartItem";
+import { CartItem } from "@components/cart";
 import useCart from "@hooks/useCart";
 import React from "react";
 

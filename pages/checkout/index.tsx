@@ -1,9 +1,10 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import {
   Button,
   CheckoutLayout,
   Logo,
   PaymentForm,
+  PaymentLogos,
   StripeProvider
 } from "@components";
 import { useCartProductsQuery } from "@api/queries";
@@ -24,10 +25,10 @@ import { DeliveryType, OrderParams } from "@interfaces";
 import { useCreateOrderMutation } from "@api/mutations";
 import useCart from "@hooks/useCart";
 import { PaymentMethodCreateParams } from "@stripe/stripe-js";
+import { SHIPPING_FEE } from "@/config";
+import { useRouter } from "next/router";
 
 interface Props {}
-
-const SHIPPING_COST = 20;
 
 const Checkout: React.FC<Props> = () => {
   const methods = useForm<OrderParams>({
@@ -58,11 +59,18 @@ const Checkout: React.FC<Props> = () => {
   );
 
   // TODO: Add confirmation to leave site
+  const router = useRouter();
 
-  const { items } = useCart();
-  const { productTotal } = useCartProductsQuery();
+  const { items, isEmpty } = useCart();
+  const { productTotal, isStoreOpen } = useCartProductsQuery();
 
-  const grandTotal = productTotal + (isDelivery ? SHIPPING_COST : 0);
+  useEffect(() => {
+    if (isEmpty || !isStoreOpen) {
+      router.push("/");
+    }
+  }, [isEmpty, router, isStoreOpen]);
+
+  const grandTotal = productTotal + (isDelivery ? SHIPPING_FEE : 0);
 
   const [mutate, { loading }] = useCreateOrderMutation();
 
@@ -152,39 +160,11 @@ const Checkout: React.FC<Props> = () => {
             />
           )}
           <Textarea label="Uwagi do zamówienia" {...register("remarks")} />
-          <Button type="submit" disabled={loading}>
+          <Button type="submit" disabled={loading} className={styles.cta}>
             Zamawiam za {formatPrice(grandTotal)}
           </Button>
+          <PaymentLogos />
         </FormWrapper>
-        <aside className={styles.cartSection}>
-          <Cart />
-          <section className={styles.summary}>
-            <table>
-              <tbody>
-                <tr>
-                  <th>Podsuma</th>
-                  <td>{formatPrice(productTotal)}</td>
-                </tr>
-                <tr>
-                  <th>Dostawa</th>
-                  <td>
-                    {isDelivery ? formatPrice(SHIPPING_COST) : "Bezpłatna"}
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </section>
-          <section className={styles.total}>
-            <table>
-              <tbody>
-                <tr>
-                  <th>Suma</th>
-                  <td>{formatPrice(grandTotal)}</td>
-                </tr>
-              </tbody>
-            </table>
-          </section>
-        </aside>
       </div>
     </CheckoutLayout>
   );

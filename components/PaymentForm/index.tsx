@@ -56,7 +56,7 @@ const PaymentForm: React.FC<Props> = ({ amount, billingDetails }) => {
       <PaymentElement options={{ fields: { billingDetails: "never" } }} />
       <Button type="submit" className={styles.button}>
         <Padlock />
-        Zapłać {formatPrice(amount / 100)}
+        Płacę {formatPrice(amount / 100)}
       </Button>
     </form>
   );

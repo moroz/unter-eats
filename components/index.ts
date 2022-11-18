@@ -1,6 +1,4 @@
 export { default as AddToCartButton } from "./AddToCartButton";
-export { default as CartButton } from "./CartButton";
-export { default as CartModal } from "./CartModal";
 export { default as CategoryNavigation } from "./CategoryNavigation";
 export { default as PaymentLogos } from "./PaymentLogos";
 export { default as ProductCard } from "./ProductCard";
@@ -9,7 +7,6 @@ export { default as ProductImage } from "./ProductImage";
 export { default as PaymentForm } from "./PaymentForm";
 export { default as StripeProvider } from "./StripeProvider";
 export { default as Button } from "./Button";
-export { default as CartItem } from "./CartItem";
 export { default as QuantityInput } from "./QuantityInput";
 export { default as CheckoutLayout } from "./CheckoutLayout";
 export { default as Logo } from "./Logo";

@@ -70,6 +70,7 @@ export default function useCartReducer() {
 
   return {
     items,
+    isEmpty: items.length === 0,
     removeItem,
     addItem,
     changeItemQuantity,

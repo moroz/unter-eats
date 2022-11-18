@@ -1,7 +1,7 @@
 import useCart from "@hooks/useCart";
 import { CartItem, Product } from "@interfaces";
 import React, { useCallback } from "react";
-import ProductImage from "../ProductImage";
+import { ProductImage } from "@components";
 import styles from "./CartItem.module.sass";
 import CloseIcon from "@icons/xmark.svg";
 import { QuantityInput } from "@components";

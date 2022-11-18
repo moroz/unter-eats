@@ -1,4 +1,4 @@
-@import ../../styles/_variables.sass
+@import ../../../styles/_variables.sass
 
 .modal
   position: fixed
@@ -34,14 +34,20 @@
 
   p
     text-align: center
+    margin: .25rem
+    +mobile
+      font-size: .75em
 
   +mobile
-    padding-bottom: 1rem
+    padding: 1rem 1.5rem
 
 .summaryTable
   table-layout: fixed
   width: 100%
   font-size: 1.2rem
+
+  +mobile
+    font-size: 1rem
 
   th, td
     padding: 0
@@ -64,6 +70,9 @@
     font-weight: normal
     font-size: 1rem
     color: var(--fg-color)
+    
+    +mobile
+      padding: .25em 0
 
 .productTotal
   display: flex
@@ -99,7 +108,13 @@
   margin-top: 1.5rem
 
   +mobile
-    margin-top: 1rem
+    margin-top: .75rem
+    --base-height: 1.25rem
 
 .notOpen
   color: var(--danger)
+
+.cta
+  +mobile
+    margin-top: .5rem
+    // height: 2.5rem

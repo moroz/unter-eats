@@ -2,7 +2,7 @@ import Link from "next/link";
 import React, { useCallback, useEffect, useState } from "react";
 import styles from "./Header.module.sass";
 import Logo from "../../Logo";
-import { CartButton } from "@components";
+import { CartButton } from "@components/cart";
 import { Spin as Hamburger } from "hamburger-react";
 import PhoneIcon from "../../../icons/phone.svg";
 import { Category } from "@interfaces";
