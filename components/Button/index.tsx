@@ -15,11 +15,12 @@ const Button: React.FC<Props> = ({
   onClick,
   className,
   type = "button",
+  disabled,
   ...rest
 }) => {
   const classes = clsx(styles.root, className);
 
-  if (href) {
+  if (href && !disabled) {
     return (
       <Link href={href} onClick={onClick} className={classes}>
         {children}

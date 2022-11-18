@@ -8,12 +8,20 @@ import PaymentLogos from "../PaymentLogos";
 import styles from "./CartModal.module.sass";
 import CloseIcon from "@icons/xmark.svg";
 import Cart from "@components/Cart";
+import { FREE_SHIPPING_THRESHOLD, SHIPPING_FEE } from "@/config";
 
 interface Props {}
 
 const CartModal: React.FC<Props> = () => {
   const { toggleCart } = useCart();
-  const { products, productTotal } = useCartProductsQuery();
+  const {
+    products,
+    productTotal,
+    grandTotal,
+    isFreeShipping,
+    isStoreOpen,
+    loading
+  } = useCartProductsQuery();
 
   const handleKeyDown = useCallback(
     (e: KeyboardEvent) => {
@@ -30,7 +38,7 @@ const CartModal: React.FC<Props> = () => {
     };
   }, [handleKeyDown]);
 
-  if (!products) return null;
+  if (!products || loading) return null;
 
   return (
     <div className={styles.modal}>
@@ -45,18 +53,40 @@ const CartModal: React.FC<Props> = () => {
         <Cart />
       </section>
       <section className={styles.summary}>
+        {!isStoreOpen && (
+          <p className={styles.notOpen}>
+            Przepraszamy! W tej chwili restauracja jest nieczynna. Zapraszamy do
+            składania zamówień w godzinach pracy lokalu.
+          </p>
+        )}
         <table className={styles.summaryTable}>
           <tbody>
-            <tr>
-              <th>Podsuma:</th>
-              <td>{formatPrice(productTotal)}</td>
+            {!isFreeShipping && (
+              <tr className={styles.subtotal}>
+                <th>Podsuma:</th>
+                <td>{formatPrice(productTotal)}</td>
+              </tr>
+            )}
+            <tr className={styles.shippingFee}>
+              <th>Dostawa:</th>
+              <td>
+                {isFreeShipping ? "Bezpłatna" : formatPrice(SHIPPING_FEE)}
+              </td>
+            </tr>
+
+            <tr className={styles.grandTotal}>
+              <th>Do zapłaty:</th>
+              <td>{formatPrice(grandTotal)}</td>
             </tr>
           </tbody>
         </table>
-        <p>Koszty dostawy zostaną wyliczone w następnym etapie.</p>
-        <Button href="/checkout" onClick={toggleCart}>
-          Do kasy
-        </Button>
+        {!isFreeShipping && (
+          <p>
+            Bezpłatna dostawa na terenie Koszalina przy zamówieniach powyżej{" "}
+            {FREE_SHIPPING_THRESHOLD} zł.
+          </p>
+        )}
+        {isStoreOpen && <Button href="/checkout">Do kasy</Button>}
         <PaymentLogos className={styles.paymentMethods} />
       </section>
     </div>

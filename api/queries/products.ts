@@ -1,3 +1,4 @@
+import { FREE_SHIPPING_THRESHOLD, SHIPPING_FEE } from "@/config";
 import { calculateTotal, transformProducts } from "@/lib/cart/CartHelpers";
 import { gql, useQuery } from "@apollo/client";
 import useCart from "@hooks/useCart";
@@ -12,11 +13,13 @@ export const GET_PRODUCTS = gql`
       price
       imageUuid
     }
+    isStoreOpen
   }
 `;
 
 export interface GetProductsQueryResult {
   products: Product[];
+  isStoreOpen: boolean;
 }
 
 export interface GetProductsQueryVariables {
@@ -26,7 +29,7 @@ export interface GetProductsQueryVariables {
 export const useGetProductsQuery = (ids: string[]) =>
   useQuery<GetProductsQueryResult, GetProductsQueryVariables>(GET_PRODUCTS, {
     variables: { ids },
-    nextFetchPolicy: "cache-first"
+    fetchPolicy: "cache-and-network"
   });
 
 export const useCartProductsQuery = () => {
@@ -39,5 +42,19 @@ export const useCartProductsQuery = () => {
     return calculateTotal(items, products);
   }, [items, products]);
 
-  return { loading, products, productTotal };
+  const isFreeShipping = productTotal >= FREE_SHIPPING_THRESHOLD;
+  const isStoreOpen = data?.isStoreOpen;
+
+  const grandTotal = isFreeShipping
+    ? productTotal
+    : productTotal + SHIPPING_FEE;
+
+  return {
+    loading,
+    products,
+    productTotal,
+    grandTotal,
+    isFreeShipping,
+    isStoreOpen
+  };
 };
