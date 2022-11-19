@@ -1,5 +1,7 @@
 @import ../../styles/_variables.sass
 
+$hover-color: var(--surface-4dp, var(--surface-2dp))
+
 .root
   +mobile
     &:not(.open)
@@ -41,7 +43,7 @@
     color: inherit
     display: inline-block
     padding: 0 .75rem
-    +hoverable(var(--surface-4dp))
+    +hoverable($hover-color)
 
     +mobile
       font-size: 1.25rem

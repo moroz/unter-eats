@@ -74,7 +74,8 @@
       background: var(--fg-color)
 
 .contact, .cart
-  +hoverable(var(--surface-4dp))
+  +hoverable(var(--surface-4dp, var(--surface-2dp)))
+  
   +mobile
     .label
       display: none
