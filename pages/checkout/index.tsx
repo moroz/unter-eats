@@ -62,15 +62,13 @@ const Checkout: React.FC<Props> = () => {
   const router = useRouter();
 
   const { items, isEmpty } = useCart();
-  const { productTotal, isStoreOpen } = useCartProductsQuery();
+  const { grandTotal, isStoreOpen } = useCartProductsQuery();
 
   useEffect(() => {
     if (isEmpty || !isStoreOpen) {
       router.push("/");
     }
   }, [isEmpty, router, isStoreOpen]);
-
-  const grandTotal = productTotal + (isDelivery ? SHIPPING_FEE : 0);
 
   const [mutate, { loading }] = useCreateOrderMutation();
 

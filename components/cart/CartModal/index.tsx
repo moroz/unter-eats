@@ -8,6 +8,8 @@ import styles from "./CartModal.module.sass";
 import CloseIcon from "@icons/xmark.svg";
 import Cart from "../Cart";
 import { FREE_SHIPPING_THRESHOLD, SHIPPING_FEE } from "@/config";
+import CartSummary from "../CartSummary";
+import CartEmpty from "../CartEmpty";
 
 interface Props {}
 
@@ -49,7 +51,7 @@ const CartModal: React.FC<Props> = () => {
       </button>
       <h2>Koszyk</h2>
       <section className={styles.content}>
-        <Cart />
+        {isEmpty ? <CartEmpty /> : <Cart />}
       </section>
       <section className={styles.summary}>
         {!isStoreOpen && (
@@ -61,43 +63,13 @@ const CartModal: React.FC<Props> = () => {
 
         {!isEmpty && isStoreOpen && (
           <>
-            <table className={styles.summaryTable}>
-              <tbody>
-                {!isFreeShipping && (
-                  <>
-                    <tr className={styles.subtotal}>
-                      <th>Podsuma:</th>
-                      <td>{formatPrice(productTotal)}</td>
-                    </tr>
-                    <tr className={styles.shippingFee}>
-                      <th>Dostawa:</th>
-                      <td>
-                        {isFreeShipping
-                          ? "Bezpłatna"
-                          : formatPrice(SHIPPING_FEE)}
-                      </td>
-                    </tr>
-                  </>
-                )}
-
-                <tr className={styles.grandTotal}>
-                  <th>Do zapłaty:</th>
-                  <td>{formatPrice(grandTotal)}</td>
-                </tr>
-              </tbody>
-            </table>
-            <p>
-              Bezpłatna dostawa na terenie Koszalina przy zamówieniach powyżej{" "}
-              {FREE_SHIPPING_THRESHOLD} zł.
-            </p>
+            <CartSummary />
+            <Button href="/checkout" className={styles.cta}>
+              Zamawiam za {formatPrice(grandTotal)}
+            </Button>
+            <PaymentLogos className={styles.paymentMethods} />
           </>
         )}
-        {isStoreOpen && (
-          <Button href="/checkout" className={styles.cta}>
-            Zamawiam za {formatPrice(grandTotal)}
-          </Button>
-        )}
-        <PaymentLogos className={styles.paymentMethods} />
       </section>
     </div>
   );

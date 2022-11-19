@@ -1,0 +1,58 @@
+@import ../../../styles/_variables.sass
+
+.summary
+  padding: 1.5rem 1.5rem 3rem
+  background: var(--surface-1dp)
+
+  p
+    text-align: center
+    margin: .25rem
+    +mobile
+      font-size: .75em
+
+  +mobile
+    padding: 1rem 1.5rem
+
+.summaryTable
+  table-layout: fixed
+  width: 100%
+  font-size: 1.2rem
+
+  +mobile
+    font-size: 1rem
+
+  th, td
+    padding: 0
+    color: var(--emphasis-color)
+
+  th
+    text-align: left
+
+  td
+    text-align: right
+
+  margin-top: auto
+
+  th, td
+    font-weight: bold
+
+.shippingFee
+  th, td
+    padding: .5em 0
+    font-weight: normal
+    font-size: 1rem
+    color: var(--fg-color)
+    
+    +mobile
+      padding: .25em 0
+
+.productTotal
+  display: flex
+  justify-content: space-between
+  margin-bottom: .5rem
+  font-size: 1.75rem
+
+  p
+    margin: 0
+
+

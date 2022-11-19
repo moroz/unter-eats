@@ -11,7 +11,7 @@ interface Props {
   className?: string;
 }
 
-const FADE_OUT_TIME = 5000;
+const FADE_OUT_TIME = 2000;
 
 const AddToCartButton: React.FC<Props> = ({ product, className }) => {
   const { addItem } = useCart();
