@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useCallback, useEffect } from "react";
 import styles from "./CheckoutLayout.module.sass";
 import Head from "next/head";
 import { PAGE_TITLE } from "@/config";
 import Link from "next/link";
 import { Logo } from "@components";
+import Router from "next/router";
 
 interface Props {
   children: React.ReactNode;
@@ -11,6 +12,20 @@ interface Props {
 }
 
 const CheckoutLayout: React.FC<Props> = ({ children, title }) => {
+  const beforeUnloadListener = useCallback(() => {
+    if (!confirm("Czy na pewno chcesz przerwać składanie zamówienia?")) {
+      throw "route canceled";
+    }
+  }, []);
+
+  useEffect(() => {
+    Router.events.on("routeChangeStart", beforeUnloadListener);
+
+    return () => {
+      Router.events.off("routeChangeStart", beforeUnloadListener);
+    };
+  }, [beforeUnloadListener]);
+
   return (
     <div className={styles.layout}>
       <Head>
