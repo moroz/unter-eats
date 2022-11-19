@@ -43,7 +43,7 @@ const PaymentForm: React.FC<Props> = ({ amount, billingDetails }) => {
   return (
     <form onSubmit={onSubmit}>
       <p>
-        Płatności przetwarzane są bezpiecznie przy użyciu{" "}
+        Płatności przetwarzane są bezpiecznie przez firmę{" "}
         <a
           href="https://www.stripe.com"
           target="_blank"
