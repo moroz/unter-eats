@@ -19,6 +19,7 @@ export interface OrderParams {
   lineItems: LineItemParams[];
   lastName?: string | null;
   remarks?: string | null;
+  metadata?: string | null;
 }
 
 export interface LineItem {

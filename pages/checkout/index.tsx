@@ -23,6 +23,7 @@ import { useCreateOrderMutation } from "@api/mutations";
 import useCart from "@hooks/useCart";
 import { PaymentMethodCreateParams } from "@stripe/stripe-js";
 import { useRouter } from "next/router";
+import { buildMetadata } from "@lib/orderMetadata";
 
 interface Props {}
 
@@ -71,7 +72,9 @@ const Checkout: React.FC<Props> = () => {
   const onSubmit = useCallback(
     async (params: OrderParams) => {
       const result = await mutate({
-        variables: { params: { ...params, lineItems: items } }
+        variables: {
+          params: { ...params, lineItems: items, metadata: buildMetadata() }
+        }
       });
       if (result.data?.result.success) {
         const clientSecret = result.data.result.data.paymentIntent.clientSecret;
