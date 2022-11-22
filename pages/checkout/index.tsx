@@ -24,6 +24,7 @@ import useCart from "@hooks/useCart";
 import { PaymentMethodCreateParams } from "@stripe/stripe-js";
 import { useRouter } from "next/router";
 import { buildMetadata } from "@lib/orderMetadata";
+import { validateEmail } from "@lib/emailValidation";
 
 interface Props {}
 
@@ -116,7 +117,10 @@ const Checkout: React.FC<Props> = () => {
         </InputGroup>
         <InputGroup columns={2}>
           <InputField
-            {...register("email", { required: true })}
+            {...register("email", {
+              required: true,
+              validate: { validateEmail }
+            })}
             label="E-mail"
             helperText="Na ten adres otrzymasz potwierdzenie zamówienia. Nie wysyłamy treści reklamowych."
             required
@@ -125,7 +129,7 @@ const Checkout: React.FC<Props> = () => {
           <InputField
             {...register("phoneNo", { required: true })}
             label="Telefon kontaktowy"
-            helperText="Pod ten numer będziemy dzwonić w razie pytań dotyczących dostawy."
+            helperText="Pod ten numer będziemy dzwonić w razie pytań dotyczących dostawy. W przypadku zagranicznych numerów telefonu, proszę podać numer z kodem kierunkowym kraju, np. +496912345678."
             required
             autoComplete="tel"
           />
