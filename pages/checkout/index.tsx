@@ -25,6 +25,7 @@ import { PaymentMethodCreateParams } from "@stripe/stripe-js";
 import { useRouter } from "next/router";
 import { buildMetadata } from "@lib/orderMetadata";
 import { validateEmail } from "@lib/emailValidation";
+import { setFormErrors } from "@lib/formHelpers";
 
 interface Props {}
 
@@ -34,7 +35,7 @@ const Checkout: React.FC<Props> = () => {
       deliveryType: DeliveryType.Delivery
     }
   });
-  const { register, watch } = methods;
+  const { register, watch, setError } = methods;
   const isDelivery =
     watch("deliveryType", DeliveryType.Delivery) === DeliveryType.Delivery;
   const { firstName, lastName, email, phoneNo, shippingAddress } = watch();
@@ -56,7 +57,6 @@ const Checkout: React.FC<Props> = () => {
     null
   );
 
-  // TODO: Add confirmation to leave site
   const router = useRouter();
 
   const { items, isEmpty } = useCart();
@@ -82,9 +82,11 @@ const Checkout: React.FC<Props> = () => {
         if (clientSecret) {
           setPaymentIntentSecret(clientSecret);
         }
+      } else {
+        setFormErrors(setError, result.data?.result.errors);
       }
     },
-    [mutate, items]
+    [mutate, items, setError]
   );
 
   if (paymentIntentSecret) {
