@@ -1,7 +1,6 @@
 import { CheckoutLayout } from "@components";
 import useCartReducer from "@hooks/useCartReducer";
 import Link from "next/link";
-import { useRouter } from "next/router";
 import React, { useEffect } from "react";
 import styles from "./Success.module.sass";
 
@@ -9,11 +8,8 @@ interface Props {}
 
 const Success: React.FC<Props> = () => {
   const { reset } = useCartReducer();
-  const query = useRouter().query;
 
-  useEffect(() => {
-    if (query["redirect_status"] === "succeeded") reset();
-  });
+  useEffect(reset, [reset]);
 
   return (
     <CheckoutLayout preventLeaving={false} className={styles.page}>
