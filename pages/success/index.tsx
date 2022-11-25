@@ -13,7 +13,7 @@ const Success: React.FC<Props> = () => {
 
   useEffect(() => {
     if (query["redirect_status"] === "succeeded") reset();
-  }, []);
+  });
 
   return (
     <CheckoutLayout preventLeaving={false} className={styles.page}>
