@@ -26,7 +26,12 @@ const CartItem: React.FC<Props> = ({ product, cartItem }) => {
 
   return (
     <article className={styles.item}>
-      <ProductImage product={product} aspectRatio="1 / 1" showPrice={false} />
+      <ProductImage
+        product={product}
+        aspectRatio="1 / 1"
+        showPrice={false}
+        size="cart"
+      />
       <p className={styles.name}>{product.namePl}</p>
       <span className={styles.price}>
         {formatPrice(Number(product.price) * cartItem.quantity)}

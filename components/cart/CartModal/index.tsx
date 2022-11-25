@@ -7,7 +7,6 @@ import { Button, PaymentLogos } from "@components";
 import styles from "./CartModal.module.sass";
 import CloseIcon from "@icons/xmark.svg";
 import Cart from "../Cart";
-import { FREE_SHIPPING_THRESHOLD, SHIPPING_FEE } from "@/config";
 import CartSummary from "../CartSummary";
 import CartEmpty from "../CartEmpty";
 
@@ -15,14 +14,7 @@ interface Props {}
 
 const CartModal: React.FC<Props> = () => {
   const { isEmpty, toggleCart } = useCart();
-  const {
-    products,
-    productTotal,
-    grandTotal,
-    isFreeShipping,
-    isStoreOpen,
-    loading
-  } = useCartProductsQuery();
+  const { products, grandTotal, isStoreOpen, loading } = useCartProductsQuery();
 
   const handleKeyDown = useCallback(
     (e: KeyboardEvent) => {
