@@ -15,13 +15,11 @@
     z-index: 12
 
   +light
-    border-bottom: 1px solid #ccc
-    box-shadow: 0 2px 3px rgba(0, 0, 0, .2)
+    +has-shadow
     background: var(--surface-1dp)
 
   +not-mobile
     padding: 0 2rem
-    box-shadow: none
 
   +with-inline-categories
     grid-template-columns: auto 1fr repeat(2, var(--header-height))
@@ -30,6 +28,8 @@
 
   +without-inline-categories
     grid-template-columns: 1fr repeat(2, var(--header-height))
+    border: 0
+    box-shadow: none
 
   a
     color: var(--emphasis-color)

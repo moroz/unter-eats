@@ -1,5 +1,5 @@
 import { CheckoutLayout } from "@components";
-import useCartReducer from "@hooks/useCartReducer";
+import useCart from "@hooks/useCart";
 import Link from "next/link";
 import React, { useEffect } from "react";
 import styles from "./Success.module.sass";
@@ -7,7 +7,7 @@ import styles from "./Success.module.sass";
 interface Props {}
 
 const Success: React.FC<Props> = () => {
-  const { reset } = useCartReducer();
+  const { reset } = useCart();
 
   useEffect(reset, [reset]);
 
