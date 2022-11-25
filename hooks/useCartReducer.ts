@@ -68,8 +68,13 @@ export default function useCartReducer() {
     [changeItemQuantity]
   );
 
+  const reset = useCallback(() => {
+    dispatch({ type: CartActionType.Reset });
+  }, [dispatch]);
+
   return {
     items,
+    reset,
     isEmpty: items.length === 0,
     removeItem,
     addItem,

@@ -5,18 +5,28 @@ import { PAGE_TITLE } from "@/config";
 import Link from "next/link";
 import { Logo } from "@components";
 import Router from "next/router";
+import clsx from "clsx";
 
 interface Props {
   children: React.ReactNode;
   title?: string;
+  preventLeaving?: boolean;
+  className?: string;
 }
 
-const CheckoutLayout: React.FC<Props> = ({ children, title }) => {
+const CheckoutLayout: React.FC<Props> = ({
+  children,
+  title,
+  className,
+  preventLeaving = true
+}) => {
   const beforeUnloadListener = useCallback(() => {
+    if (!preventLeaving) return;
+
     if (!confirm("Czy na pewno chcesz przerwać składanie zamówienia?")) {
       throw "route canceled";
     }
-  }, []);
+  }, [preventLeaving]);
 
   useEffect(() => {
     Router.events.on("routeChangeStart", beforeUnloadListener);
@@ -27,7 +37,7 @@ const CheckoutLayout: React.FC<Props> = ({ children, title }) => {
   }, [beforeUnloadListener]);
 
   return (
-    <div className={styles.layout}>
+    <div className={clsx(styles.layout, className)}>
       <Head>
         <title>{title ? `${title} | ${PAGE_TITLE}` : PAGE_TITLE}</title>
       </Head>

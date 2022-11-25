@@ -28,7 +28,7 @@ const PaymentForm: React.FC<Props> = ({ amount, billingDetails }) => {
       const result = await stripe.confirmPayment({
         elements,
         confirmParams: {
-          return_url: location.origin + "/",
+          return_url: location.origin + "/success",
           payment_method_data: {
             billing_details: billingDetails
           }

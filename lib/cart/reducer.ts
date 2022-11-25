@@ -58,6 +58,10 @@ const CartReducer: Reducer<CartState, CartAction> = (
       };
     }
 
+    case CartActionType.Reset: {
+      return initialState;
+    }
+
     default:
       return state;
   }
