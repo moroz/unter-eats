@@ -10,6 +10,7 @@ export const GET_PRODUCTS = gql`
     products(ids: $ids) {
       id
       namePl
+      inStock
       price
       imageUuid
     }

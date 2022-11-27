@@ -15,6 +15,7 @@ export const GET_CATEGORY = gql`
         price
         descriptionPl
         imageUuid
+        inStock
         slug
       }
     }

@@ -6,6 +6,7 @@ export interface Product {
   descriptionPl: string | null;
   descriptionEn: string | null;
   imageUuid: string | null;
+  inStock: boolean;
   insertedAt: string;
   updatedAt: string;
   price: string;

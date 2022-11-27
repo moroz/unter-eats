@@ -12,7 +12,7 @@ interface Props {
 const ProductCard: React.FC<Props> = ({ product }) => {
   return (
     <article className={styles.card}>
-      <ProductImage product={product} />
+      <ProductImage product={product} inStock={product.inStock} />
       <span className={styles.name}>{product.namePl}</span>
       <div className={styles.description}>{product.descriptionPl}</div>
       <AddToCartButton product={product} />
