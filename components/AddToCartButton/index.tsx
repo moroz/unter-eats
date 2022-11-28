@@ -32,12 +32,24 @@ const AddToCartButton: React.FC<Props> = ({ product, className }) => {
   return (
     <Button
       onClick={onClick}
-      className={clsx(styles.cta, clicked && styles.clicked, className)}
+      disabled={!product.inStock}
+      className={clsx(
+        styles.cta,
+        clicked && styles.clicked,
+        className,
+        !product.inStock && styles.soldOut
+      )}
     >
-      <span className={styles.baseText}>
-        Do koszyka · {formatPrice(product.price)}
-      </span>
-      <span className={styles.clickedText}>Dodano do koszyka!</span>
+      {product.inStock ? (
+        <>
+          <span className={styles.baseText}>
+            Do koszyka · {formatPrice(product.price)}
+          </span>
+          <span className={styles.clickedText}>Dodano do koszyka!</span>
+        </>
+      ) : (
+        <span>Chwilowo niedostępne</span>
+      )}
     </Button>
   );
 };

@@ -71,7 +71,7 @@ const ProductImage: React.FC<Props> = React.memo(
           />
         ))}
         <img src={`${base_dir}/thumb_mobile.webp`} alt="" />
-        {product?.price && showPrice ? (
+        {product?.price && showPrice && product?.inStock ? (
           <span className={styles.priceLabel}>{product.price} zł</span>
         ) : null}
       </picture>
