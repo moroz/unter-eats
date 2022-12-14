@@ -3,7 +3,7 @@ import { calculateTotal, transformProducts } from "@/lib/cart/CartHelpers";
 import { gql, useQuery } from "@apollo/client";
 import useCart from "@hooks/useCart";
 import { Product } from "@interfaces";
-import { useMemo } from "react";
+import { useCallback, useMemo } from "react";
 
 export const GET_PRODUCTS = gql`
   query GetProducts($ids: [ID!]!) {
@@ -34,7 +34,7 @@ export const useGetProductsQuery = (ids: string[]) =>
   });
 
 export const useCartProductsQuery = () => {
-  const { ids, items } = useCart();
+  const { ids, items, removeItem } = useCart();
   const { data, loading } = useGetProductsQuery(ids);
   const products = transformProducts(data?.products ?? []);
 
@@ -42,6 +42,16 @@ export const useCartProductsQuery = () => {
     if (!Object.entries(products).length) return 0;
     return calculateTotal(items, products);
   }, [items, products]);
+
+  const unavailableItems = useMemo(() => {
+    return items
+      .filter(({ productId }) => products[productId]?.inStock === false)
+      .map(({ productId }) => products[productId]);
+  }, [items, products]);
+
+  const removeUnavailableItems = useCallback(() => {
+    unavailableItems.forEach(({ id }) => removeItem(id));
+  }, [unavailableItems, removeItem]);
 
   const isFreeShipping = productTotal >= FREE_SHIPPING_THRESHOLD;
   const isStoreOpen = data?.isStoreOpen;
@@ -56,6 +66,8 @@ export const useCartProductsQuery = () => {
     productTotal,
     grandTotal,
     isFreeShipping,
-    isStoreOpen
+    isStoreOpen,
+    unavailableItems,
+    removeUnavailableItems
   };
 };

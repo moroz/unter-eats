@@ -16,6 +16,7 @@ const CartItem: React.FC<Props> = ({ product, cartItem }) => {
   const { removeItem, changeItemQuantity } = useCart();
 
   // TODO: Add option to revert removing item from cart
+  // TODO: Notify when item becomes available?
 
   const onChangeQuantity = useCallback(
     (quantity: number) => {
@@ -36,11 +37,15 @@ const CartItem: React.FC<Props> = ({ product, cartItem }) => {
       <span className={styles.price}>
         {formatPrice(Number(product.price) * cartItem.quantity)}
       </span>
-      <QuantityInput
-        className={styles.input}
-        value={cartItem.quantity}
-        onChangeQuantity={onChangeQuantity}
-      />
+      {product.inStock ? (
+        <QuantityInput
+          className={styles.input}
+          value={cartItem.quantity}
+          onChangeQuantity={onChangeQuantity}
+        />
+      ) : (
+        <span className={styles.outOfStockLabel}>Produkt niedostępny</span>
+      )}
       <button className={styles.remove} onClick={() => removeItem(product.id)}>
         Usuń <CloseIcon />
       </button>

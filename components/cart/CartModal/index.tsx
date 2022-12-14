@@ -9,12 +9,20 @@ import CloseIcon from "@icons/xmark.svg";
 import Cart from "../Cart";
 import CartSummary from "../CartSummary";
 import CartEmpty from "../CartEmpty";
+import OutOfStockNotification from "../OutOfStockNotification";
 
 interface Props {}
 
 const CartModal: React.FC<Props> = () => {
   const { isEmpty, toggleCart } = useCart();
-  const { products, grandTotal, isStoreOpen, loading } = useCartProductsQuery();
+  const {
+    products,
+    grandTotal,
+    isStoreOpen,
+    loading,
+    unavailableItems,
+    removeUnavailableItems
+  } = useCartProductsQuery();
 
   const handleKeyDown = useCallback(
     (e: KeyboardEvent) => {
@@ -43,26 +51,32 @@ const CartModal: React.FC<Props> = () => {
       </button>
       <h2>Koszyk</h2>
       <section className={styles.content}>
+        {unavailableItems.length > 0 && (
+          <OutOfStockNotification onConfirm={removeUnavailableItems} />
+        )}
         {isEmpty ? <CartEmpty /> : <Cart />}
       </section>
-      <section className={styles.summary}>
-        {!isStoreOpen && (
-          <p className={styles.notOpen}>
-            Przepraszamy! W tej chwili restauracja jest nieczynna. Zapraszamy do
-            składania zamówień w godzinach pracy lokalu.
-          </p>
-        )}
 
-        {!isEmpty && isStoreOpen && (
-          <>
-            <CartSummary />
-            <Button href="/checkout" className={styles.cta}>
-              Zamawiam za {formatPrice(grandTotal)}
-            </Button>
-            <PaymentLogos className={styles.paymentMethods} />
-          </>
-        )}
-      </section>
+      {!isEmpty && (
+        <section className={styles.summary}>
+          {!isStoreOpen && (
+            <p className={styles.notOpen}>
+              Przepraszamy! W tej chwili restauracja jest nieczynna. Zapraszamy
+              do składania zamówień w godzinach pracy lokalu.
+            </p>
+          )}
+
+          {!isEmpty && unavailableItems.length === 0 && (
+            <>
+              <CartSummary />
+              <Button href="/checkout" className={styles.cta}>
+                Zamawiam za {formatPrice(grandTotal)}
+              </Button>
+              <PaymentLogos className={styles.paymentMethods} />
+            </>
+          )}
+        </section>
+      )}
     </div>
   );
 };

@@ -1,3 +1,5 @@
+@import ../../../styles/_variables.sass
+
 .item
   display: grid
   grid-template-columns: 90px 1fr auto
@@ -48,3 +50,8 @@
 .input
   grid-column: 2
   grid-row: 2
+
+.outOfStockLabel
+  color: var(--danger)
+  display: inline-block
+  line-height: rem-calc(36px)
