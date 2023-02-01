@@ -66,7 +66,7 @@ const CartModal: React.FC<Props> = () => {
             </p>
           )}
 
-          {!isEmpty && unavailableItems.length === 0 && (
+          {!isEmpty && isStoreOpen && unavailableItems.length === 0 && (
             <>
               <CartSummary />
               <Button href="/checkout" className={styles.cta}>
