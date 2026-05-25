@@ -18,14 +18,15 @@ let apolloClient: ApolloClient<NormalizedCacheObject>;
 
 const resolvePublicUri = () => {
   const base = process.env.NEXT_PUBLIC_API_URL;
-  if (process.env.NODE_ENV !== "development") return base;
   if (base?.match(/^https?:\/\//)) return base;
   return location.origin + base;
 };
 
 function createApolloClient() {
   const ssrMode = typeof window === "undefined";
-  const uri = ssrMode ? process.env.API_URL : resolvePublicUri();
+  const uri = ssrMode
+    ? process.env.API_URL ?? process.env.NEXT_PUBLIC_API_URL
+    : resolvePublicUri();
 
   return new ApolloClient({
     ssrMode,
